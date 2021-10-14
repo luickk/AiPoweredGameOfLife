@@ -6,5 +6,9 @@
 
 #IncludeRegexTransform: 
 
+/Users/luickklippel/Documents/Projekte/AiPoweredGameOfLife/gameOfLife/src/gameOfLife.h
+
 /Users/luickklippel/Documents/Projekte/AiPoweredGameOfLife/gameOfLife/test/game.c
+../src/gameOfLife.h
+/Users/luickklippel/Documents/Projekte/AiPoweredGameOfLife/gameOfLife/src/gameOfLife.h
 

@@ -7,4 +7,14 @@
 #IncludeRegexTransform: 
 
 /Users/luickklippel/Documents/Projekte/AiPoweredGameOfLife/gameOfLife/src/gameOfLife.c
+stdint.h
+-
+stdio.h
+-
+stdlib.h
+-
+gameOfLife.h
+/Users/luickklippel/Documents/Projekte/AiPoweredGameOfLife/gameOfLife/src/gameOfLife.h
+
+/Users/luickklippel/Documents/Projekte/AiPoweredGameOfLife/gameOfLife/src/gameOfLife.h
 
