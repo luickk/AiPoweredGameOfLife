@@ -5,14 +5,16 @@
 
 int main() {
   matchField *game = malloc(sizeof(matchField));
-  game->xSize = 100;
-  game->ySize = 100;
+  game->xSize = 10;
+  game->ySize = 10;
 
   initMatchField(game);
 
   applyIteration(game);
 
   printf("end game \n");
+
+  printMatchField(game);
 
   freeMatchField(game);
 }
