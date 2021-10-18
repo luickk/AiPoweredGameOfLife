@@ -6,7 +6,7 @@
 void zeroMatchField(matchField *field) {
   for (int ix = 0; ix < field->xSize; ix++) {
     for (int iy = 0; iy < field->ySize; iy++) {
-      *(field->fieldMatrix + ix*field->ySize + field->ySize) = 0;
+      field->fieldMatrix[ix][iy] = 0;
     }
   }
 }
@@ -14,15 +14,17 @@ void zeroMatchField(matchField *field) {
 void printMatchField(matchField *field) {
   for (int ix = 0; ix < field->xSize; ix++) {
     for (int iy = 0; iy < field->ySize; iy++) {
-      printf("%i", *(field->fieldMatrix + ix*field->ySize + field->ySize));
+      printf("%d", field->fieldMatrix[ix][iy]);
     }
     printf("\n");
   }
 }
 
 void initMatchField(matchField *field) {
-  field->fieldMatrix = malloc((field->xSize * field->ySize) * sizeof(uint8_t));
-
+  field->fieldMatrix = malloc(field->xSize * sizeof(int*));
+  for (int i = 0; i < field->ySize; i++) {
+    field->fieldMatrix[i] = malloc(field->ySize * sizeof(int));
+  }
   zeroMatchField(field);
 }
 

@@ -10,11 +10,13 @@ int main() {
 
   initMatchField(game);
 
-  applyIteration(game);
+  // game->fieldMatrix[5][5] = 1;
+  // printMatchField(game);
 
+  // applyIteration(game);
+
+  // printMatchField(game);
+
+  // freeMatchField(game);
   printf("end game \n");
-
-  printMatchField(game);
-
-  freeMatchField(game);
 }
