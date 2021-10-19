@@ -30,6 +30,7 @@ void initMatchField(matchField *field) {
 
 void freeMatchField(matchField *field) {
   free(field->fieldMatrix);
+  // todo free second dim
   free(field);
 }
 
@@ -43,15 +44,15 @@ int fieldBoundaryCheck(matchField *field, fieldCords *cords) {
 void getNneighbours(matchField *field, fieldCords *cords, int *nNeighbours) {
   nNeighbours = 0;
   if (fieldBoundaryCheck(field, cords)) {
-    if (cords->x > 0 && cords->x < field->xSize) {
+    if (cords->x > 0 && cords->x < field->xSize-1) {
       nNeighbours += field->fieldMatrix[cords->x-1][cords->y];
       nNeighbours += field->fieldMatrix[cords->x+1][cords->y];
-    } else if (cords->x > 0 && cords->x < field->xSize || cords->y > 0 && cords->y < field->ySize) {
+    } else if (cords->x > 0 && cords->x < field->xSize-1 && cords->y > 0 && cords->y < field->ySize-1) {
       nNeighbours += field->fieldMatrix[cords->x-1][cords->y+1];
       nNeighbours += field->fieldMatrix[cords->x+1][cords->y+1];
       nNeighbours += field->fieldMatrix[cords->x+1][cords->y-1];
       nNeighbours += field->fieldMatrix[cords->x-1][cords->y-1];
-    } else if (cords->y > 0 && cords->y < field->ySize) {
+    } else if (cords->y > 0 && cords->y < field->ySize-1) {
       nNeighbours += field->fieldMatrix[cords->x][cords->y+1];
       nNeighbours += field->fieldMatrix[cords->x][cords->y-1];
     }
@@ -62,17 +63,17 @@ void applyIteration(matchField *field) {
   int nNeighbours = 0;
   fieldCords cords = {0, 0};
 
-  for (int ix; ix < field->xSize; ix++) {
-    for (int iy; iy < field->ySize; iy++) {
+  for (int ix = 0; ix < field->xSize; ix++) {
+    for (int iy = 0; iy < field->ySize; iy++) {
       cords.x = ix;
       cords.y = iy;
       getNneighbours(field, &cords, &nNeighbours);
 
-      if (nNeighbours < 1) {
-        field->fieldMatrix[ix][iy] = 0;
-      } else if (nNeighbours == 2) {
+      if (nNeighbours == 3) {
         field->fieldMatrix[ix][iy] = 1;
-      } else if (nNeighbours > 2) {
+      } else if (nNeighbours < 2) {
+        field->fieldMatrix[ix][iy] = 0;
+      } else if (nNeighbours > 3) {
         field->fieldMatrix[ix][iy] = 0;
       }
     }

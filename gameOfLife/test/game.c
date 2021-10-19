@@ -8,15 +8,24 @@ int main() {
   game->xSize = 10;
   game->ySize = 10;
 
+  int nIteration = 2;
+
   initMatchField(game);
 
-  // game->fieldMatrix[5][5] = 1;
-  // printMatchField(game);
+  game->fieldMatrix[5][5] = 1;
+  game->fieldMatrix[6][5] = 1;
+  game->fieldMatrix[7][5] = 1;
+  printf("pre iteration: \n");
+  printMatchField(game);
 
-  // applyIteration(game);
+  for(int i = 0; i <= nIteration; i++) {
+    applyIteration(game);
+    printf("iteration %d: \n", i);
+    printMatchField(game);
+  }
+  printf("after %d iterations: \n", nIteration);
+  printMatchField(game);
 
-  // printMatchField(game);
-
-  // freeMatchField(game);
+  freeMatchField(game);
   printf("end game \n");
 }
