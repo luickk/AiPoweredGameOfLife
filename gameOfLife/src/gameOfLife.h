@@ -3,6 +3,8 @@
 typedef struct {
   int xSize, ySize;
 
+  int **fieldMatrixNeighbourCount;
+
   // using int for the sake of simplicity TODO: change to bitmask (don't know whether it's even worth the extra computing time)
   int **fieldMatrix;
 } matchField;
@@ -12,9 +14,9 @@ typedef struct twoDimCords {
 } fieldCords;
 
 // internal
-int fieldBoundaryCheck(matchField *field, fieldCords *cords);
+void getNneighbours(matchField *field, int x, int y, int *nNeighbours);
 
-void getNneighbours(matchField *field, fieldCords *cords, int *nNeighbours);
+int fieldBoundaryCheck(matchField *field, int x, int y);
 
 // lib
 void printMatchField(matchField *field);

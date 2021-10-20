@@ -8,7 +8,7 @@ int main() {
   game->xSize = 10;
   game->ySize = 10;
 
-  int nIteration = 2;
+  int nIteration = 10;
 
   initMatchField(game);
 
@@ -23,8 +23,6 @@ int main() {
     printf("iteration %d: \n", i);
     printMatchField(game);
   }
-  printf("after %d iterations: \n", nIteration);
-  printMatchField(game);
 
   freeMatchField(game);
   printf("end game \n");

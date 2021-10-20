@@ -55,7 +55,7 @@ test/CMakeFiles/TestGame.dir/game.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_types/_sigset_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_types/_uid_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/resource.h
- /Library/Developer/CommandLineTools/usr/lib/clang/12.0.5/include/stdint.h
+ /Library/Developer/CommandLineTools/usr/lib/clang/13.0.0/include/stdint.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/stdint.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/_types/_uint8_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/_types/_uint16_t.h
