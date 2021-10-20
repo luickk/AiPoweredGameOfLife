@@ -29,8 +29,10 @@ void initMatchField(matchField *field) {
 }
 
 void freeMatchField(matchField *field) {
+  for (int i = 0; i < field->ySize; i++) {
+    free(field->fieldMatrix[i]);
+  }
   free(field->fieldMatrix);
-  // todo free second dim
   free(field);
 }
 
@@ -63,6 +65,7 @@ void applyIteration(matchField *field) {
   int nNeighbours = 0;
   fieldCords cords = {0, 0};
 
+  // todo: simultaneous rule apply
   for (int ix = 0; ix < field->xSize; ix++) {
     for (int iy = 0; iy < field->ySize; iy++) {
       cords.x = ix;
