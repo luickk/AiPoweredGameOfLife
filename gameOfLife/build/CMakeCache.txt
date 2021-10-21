@@ -28,7 +28,7 @@ CMAKE_BUILD_TYPE:STRING=
 CMAKE_COLOR_MAKEFILE:BOOL=ON
 
 //CXX compiler
-CMAKE_CXX_COMPILER:STRING=/Library/Developer/CommandLineTools/usr/bin/c++
+CMAKE_CXX_COMPILER:FILEPATH=/Library/Developer/CommandLineTools/usr/bin/c++
 
 //Flags used by the CXX compiler during all build types.
 CMAKE_CXX_FLAGS:STRING=
@@ -46,7 +46,7 @@ CMAKE_CXX_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
 CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
 //C compiler
-CMAKE_C_COMPILER:STRING=/Library/Developer/CommandLineTools/usr/bin/cc
+CMAKE_C_COMPILER:FILEPATH=/Library/Developer/CommandLineTools/usr/bin/cc
 
 //Flags used by the C compiler during all build types.
 CMAKE_C_FLAGS:STRING=
@@ -65,9 +65,6 @@ CMAKE_C_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
 //Path to a program.
 CMAKE_DLLTOOL:FILEPATH=CMAKE_DLLTOOL-NOTFOUND
-
-//Executable file format
-CMAKE_EXECUTABLE_FORMAT:STRING=MACHO
 
 //Flags used by the linker during all build types.
 CMAKE_EXE_LINKER_FLAGS:STRING=
@@ -228,6 +225,12 @@ GameOfLife_IS_TOP_LEVEL:STATIC=OFF
 //Value Computed by CMake
 GameOfLife_SOURCE_DIR:STATIC=/Users/luickklippel/Documents/Projekte/AiPoweredGameOfLife/gameOfLife/src
 
+//Path to a file.
+TENSORFLOW_INCLUDE_DIRS:PATH=/usr/local/include
+
+//Path to a library.
+TENSORFLOW_LIBRARIES:FILEPATH=/usr/local/lib/libtensorflow.dylib
+
 //Value Computed by CMake
 TestGame_BINARY_DIR:STATIC=/Users/luickklippel/Documents/Projekte/AiPoweredGameOfLife/gameOfLife/build/test
 
@@ -289,7 +292,9 @@ CMAKE_C_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_DLLTOOL
 CMAKE_DLLTOOL-ADVANCED:INTERNAL=1
 //Path to cache edit program executable.
-CMAKE_EDIT_COMMAND:INTERNAL=/usr/local/Cellar/cmake/3.18.4/bin/ccmake
+CMAKE_EDIT_COMMAND:INTERNAL=/usr/local/Cellar/cmake/3.21.3_1/bin/ccmake
+//Executable file format
+CMAKE_EXECUTABLE_FORMAT:INTERNAL=MACHO
 //ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS
 CMAKE_EXE_LINKER_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS_DEBUG

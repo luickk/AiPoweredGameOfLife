@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <tensorflow/c/c_api.h>
+
 #include "../src/gameOfLife.h"
 
 int main() {
@@ -25,5 +27,7 @@ int main() {
   }
 
   freeMatchField(game);
+
+  printf("Hello from TensorFlow C library version %s\n", TF_Version());
   printf("end game \n");
 }

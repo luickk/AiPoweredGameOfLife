@@ -73,4 +73,28 @@ test/CMakeFiles/TestGame.dir/game.c.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/malloc/_malloc.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_types/_dev_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_types/_mode_t.h \
+  /usr/local/include/tensorflow/c/c_api.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/13.0.0/include/stddef.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/13.0.0/include/__stddef_max_align_t.h \
+  /usr/local/include/tensorflow/c/tf_attrtype.h \
+  /usr/local/include/tensorflow/c/tf_datatype.h \
+  /usr/local/include/tensorflow/c/tf_status.h \
+  /usr/local/include/tensorflow/c/tf_tensor.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/13.0.0/include/stdbool.h \
+  /usr/local/include/tensorflow/c/c_api_macros.h \
+  /usr/local/include/tensorflow/c/tf_tstring.h \
+  /usr/local/include/tensorflow/core/platform/ctstring.h \
+  /usr/local/include/tensorflow/core/platform/ctstring_internal.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/13.0.0/include/limits.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/limits.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/machine/limits.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/i386/limits.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/i386/_limits.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/syslimits.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/string.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_types/_rsize_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/sys/_types/_errno_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/strings.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/secure/_strings.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/secure/_string.h \
   /Users/luickklippel/Documents/Projekte/AiPoweredGameOfLife/gameOfLife/test/../src/gameOfLife.h

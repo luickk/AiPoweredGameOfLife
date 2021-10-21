@@ -1,1 +1,1 @@
-/Library/Developer/CommandLineTools/usr/bin/cc  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/TestGame.dir/game.c.o -o TestGame  ../src/libGameOfLife.a 
+/Library/Developer/CommandLineTools/usr/bin/cc  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/TestGame.dir/game.c.o -o TestGame  -Wl,-rpath,/usr/local/lib /usr/local/lib/libtensorflow.dylib ../src/libGameOfLife.a 
