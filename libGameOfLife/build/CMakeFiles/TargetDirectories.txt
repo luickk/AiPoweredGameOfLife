@@ -1,0 +1,8 @@
+/Users/luickklippel/Documents/Projekte/AiPoweredGameOfLife/libGameOfLife/build/CMakeFiles/rebuild_cache.dir
+/Users/luickklippel/Documents/Projekte/AiPoweredGameOfLife/libGameOfLife/build/CMakeFiles/edit_cache.dir
+/Users/luickklippel/Documents/Projekte/AiPoweredGameOfLife/libGameOfLife/build/src/CMakeFiles/rebuild_cache.dir
+/Users/luickklippel/Documents/Projekte/AiPoweredGameOfLife/libGameOfLife/build/src/CMakeFiles/edit_cache.dir
+/Users/luickklippel/Documents/Projekte/AiPoweredGameOfLife/libGameOfLife/build/src/CMakeFiles/GameOfLife.dir
+/Users/luickklippel/Documents/Projekte/AiPoweredGameOfLife/libGameOfLife/build/test/CMakeFiles/rebuild_cache.dir
+/Users/luickklippel/Documents/Projekte/AiPoweredGameOfLife/libGameOfLife/build/test/CMakeFiles/edit_cache.dir
+/Users/luickklippel/Documents/Projekte/AiPoweredGameOfLife/libGameOfLife/build/test/CMakeFiles/TestGame.dir
