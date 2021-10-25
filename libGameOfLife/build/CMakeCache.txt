@@ -225,12 +225,6 @@ GameOfLife_IS_TOP_LEVEL:STATIC=OFF
 //Value Computed by CMake
 GameOfLife_SOURCE_DIR:STATIC=/Users/luickklippel/Documents/Projekte/AiPoweredGameOfLife/libGameOfLife/src
 
-//Path to a file.
-TENSORFLOW_INCLUDE_DIRS:PATH=/usr/local/include
-
-//Path to a library.
-TENSORFLOW_LIBRARIES:FILEPATH=/usr/local/lib/libtensorflow.dylib
-
 //Value Computed by CMake
 TestGame_BINARY_DIR:STATIC=/Users/luickklippel/Documents/Projekte/AiPoweredGameOfLife/libGameOfLife/build/test
 

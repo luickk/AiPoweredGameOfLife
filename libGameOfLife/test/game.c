@@ -4,7 +4,7 @@
 #include "../src/gameOfLife.h"
 
 int main() {
-  matchField *game = malloc(sizeof(matchField));
+  struct matchField *game = malloc(sizeof(struct matchField));
   game->xSize = 10;
   game->ySize = 10;
 
@@ -25,6 +25,6 @@ int main() {
   }
 
   freeMatchField(game);
-  
+
   printf("end game \n");
 }

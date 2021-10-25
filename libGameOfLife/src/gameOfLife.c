@@ -3,7 +3,7 @@
 
 #include "gameOfLife.h"
 
-void zeroMatchField(matchField *field) {
+void zeroMatchField(struct matchField *field) {
   for (int ix = 0; ix < field->xSize; ix++) {
     for (int iy = 0; iy < field->ySize; iy++) {
       field->fieldMatrix[ix][iy] = 0;
@@ -11,7 +11,7 @@ void zeroMatchField(matchField *field) {
   }
 }
 
-void printMatchField(matchField *field) {
+void printMatchField(struct matchField *field) {
   for (int ix = 0; ix < field->xSize; ix++) {
     for (int iy = 0; iy < field->ySize; iy++) {
       printf("%d", field->fieldMatrix[ix][iy]);
@@ -20,7 +20,7 @@ void printMatchField(matchField *field) {
   }
 }
 
-void initMatchField(matchField *field) {
+void initMatchField(struct matchField *field) {
   field->fieldMatrixNeighbourCount = malloc(field->xSize * sizeof(int*));
   for (int i = 0; i < field->ySize; i++) {
     field->fieldMatrixNeighbourCount[i] = malloc(field->ySize * sizeof(int));
@@ -33,7 +33,7 @@ void initMatchField(matchField *field) {
   zeroMatchField(field);
 }
 
-void freeMatchField(matchField *field) {
+void freeMatchField(struct matchField *field) {
   for (int i = 0; i < field->ySize; i++) {
     free(field->fieldMatrixNeighbourCount[i]);
   }
@@ -45,14 +45,14 @@ void freeMatchField(matchField *field) {
   free(field);
 }
 
-int fieldBoundaryCheck(matchField *field, int x, int y) {
+int fieldBoundaryCheck(struct matchField *field, int x, int y) {
   if (field->xSize >= x && field->ySize >= y) {
     return 1;
   }
   return 0;
 }
 
-void getNneighbours(matchField *field, int x, int y, int *nNeighbours) {
+void getNneighbours(struct matchField *field, int x, int y, int *nNeighbours) {
   *nNeighbours = 0;
   if (fieldBoundaryCheck(field, x, y)) {
     *nNeighbours += field->fieldMatrix[x-1][y];
@@ -66,7 +66,7 @@ void getNneighbours(matchField *field, int x, int y, int *nNeighbours) {
   }
 }
 
-void applyIteration(matchField *field) {
+void applyIteration(struct matchField *field) {
   int nNeighbours = 0;
 
   for (int ix = 1; ix < field->xSize-1; ix++) {

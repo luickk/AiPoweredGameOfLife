@@ -92,7 +92,6 @@ TestGame_EXTERNAL_OBJECTS =
 
 test/TestGame: test/CMakeFiles/TestGame.dir/game.c.o
 test/TestGame: test/CMakeFiles/TestGame.dir/build.make
-test/TestGame: /usr/local/lib/libtensorflow.dylib
 test/TestGame: src/libGameOfLife.a
 test/TestGame: test/CMakeFiles/TestGame.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/luickklippel/Documents/Projekte/AiPoweredGameOfLife/libGameOfLife/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable TestGame"
