@@ -11,6 +11,10 @@ void zeroMatchField(struct matchField *field) {
   }
 }
 
+void setMatchFieldXY(struct matchField *field, int x, int y, int val) {
+  field->fieldMatrix[x][y] = val;
+}
+
 void printMatchField(struct matchField *field) {
   for (int ix = 0; ix < field->xSize; ix++) {
     for (int iy = 0; iy < field->ySize; iy++) {
@@ -21,14 +25,14 @@ void printMatchField(struct matchField *field) {
 }
 
 void initMatchField(struct matchField *field) {
-  field->fieldMatrixNeighbourCount = malloc(field->xSize * sizeof(int*));
+  field->fieldMatrixNeighbourCount = malloc(field->xSize * sizeof(uint8_t*));
   for (int i = 0; i < field->ySize; i++) {
-    field->fieldMatrixNeighbourCount[i] = malloc(field->ySize * sizeof(int));
+    field->fieldMatrixNeighbourCount[i] = malloc(field->ySize * sizeof(uint8_t));
   }
 
-  field->fieldMatrix = malloc(field->xSize * sizeof(int*));
+  field->fieldMatrix = malloc(field->xSize * sizeof(uint8_t*));
   for (int i = 0; i < field->ySize; i++) {
-    field->fieldMatrix[i] = malloc(field->ySize * sizeof(int));
+    field->fieldMatrix[i] = malloc(field->ySize * sizeof(uint8_t));
   }
   zeroMatchField(field);
 }
