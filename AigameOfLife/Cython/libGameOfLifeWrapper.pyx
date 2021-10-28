@@ -6,8 +6,8 @@ np.import_array()
 cdef extern from "gameOfLife.h":
   struct matchField:
     int xSize, ySize
-    np.uint8_t **fieldMatrixNeighbourCount
-    np.uint8_t **fieldMatrix
+    np.uint8_t *fieldMatrixNeighbourCount
+    np.uint8_t *fieldMatrix
   void initMatchField(matchField *field)
   void printMatchField(matchField *field)
   void zeroMatchField(matchField *field)
@@ -26,24 +26,24 @@ cdef class matchFieldPy:
 
   property fieldMatrix:
     # memory is then freed by the c freeMatchField at py object free
+    # when replacing the C fieldMatrix pointer the old array is replaced and the old one freed before
     def __get__(self):
       cdef np.npy_intp dims[2]
       dims[0] = self.mf.xSize
       dims[1] = self.mf.ySize
-      #create a new memory view and PyArray_SimpleNewFromData to deal with the pointer
       cdef np.ndarray[dtype=np.uint8_t, ndim=2] pyMF = np.PyArray_SimpleNewFromData(2, &dims[0], np.NPY_UINT8, self.mf.fieldMatrix)
       return pyMF
     def __set__(self, arr):
-      cdef np.npy_intp dims[2]
-      dims[0] = self.mf.xSize
-      dims[1] = self.mf.ySize
-      cdef np.uint8_t[:,:] memView= np.PyArray_SimpleNew(2, &dims[0], arr)
-      cdef np.uint8_t** point_to_a = <np.uint8_t **>malloc(self.mf.xSize * sizeof(np.uint8_t*))
-      if not point_to_a: raise MemoryError
+      # !warning! frees & allocates new memory every call
+      cdef np.uint8_t[:,:] memView = arr
+      cdef np.uint8_t* memViewCArr = <np.uint8_t *>malloc(self.mf.xSize * self.mf.ySize * sizeof(np.uint8_t))
+      if not memViewCArr: raise MemoryError
+      for j in range(self.mf.xSize):
+        for i in range(self.mf.ySize):
+            memViewCArr[j+self.mf.ySize*i] = memView[j][i]
 
-      for i in range(self.mf.xSize):
-          point_to_a[i] = &memView[i, 0]
-      self.mf.fieldMatrix = &point_to_a[0]
+      free(self.mf.fieldMatrix)
+      self.mf.fieldMatrix = &memViewCArr[0]
 
 
   def __exit__(self):

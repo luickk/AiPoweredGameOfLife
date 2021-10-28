@@ -3,10 +3,10 @@
 struct matchField{
   int xSize, ySize;
 
-  uint8_t **fieldMatrixNeighbourCount;
+  uint8_t *fieldMatrixNeighbourCount;
 
   // using int for the sake of simplicity TODO: change to bitmask (don't know whether it's even worth the extra computing time)
-  uint8_t **fieldMatrix;
+  uint8_t *fieldMatrix;
 };
 
 // internal

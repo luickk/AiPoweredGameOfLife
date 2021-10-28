@@ -12,9 +12,10 @@ int main() {
 
   initMatchField(game);
 
-  game->fieldMatrix[5][5] = 1;
-  game->fieldMatrix[6][5] = 1;
-  game->fieldMatrix[7][5] = 1;
+  setMatchFieldXY(game, 5, 5, 1);
+  setMatchFieldXY(game, 6, 5, 1);
+  setMatchFieldXY(game, 7, 5, 1);
+
   printf("pre iteration: \n");
   printMatchField(game);
 
