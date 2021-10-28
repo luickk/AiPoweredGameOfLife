@@ -24,7 +24,7 @@ int main() {
     printf("iteration %d: \n", i);
     printMatchField(game);
   }
-
+  printf("Simple complexity: %d \n", game->simpleComplexity);
   freeMatchField(game);
 
   printf("end game \n");

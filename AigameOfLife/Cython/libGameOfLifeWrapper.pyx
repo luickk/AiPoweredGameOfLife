@@ -6,11 +6,13 @@ np.import_array()
 cdef extern from "gameOfLife.h":
   struct matchField:
     int xSize, ySize
+    int simpleComplexity
     np.uint8_t *fieldMatrixNeighbourCount
     np.uint8_t *fieldMatrix
   void initMatchField(matchField *field)
   void printMatchField(matchField *field)
   void zeroMatchField(matchField *field)
+  void resetGame(matchField *field)
   void setMatchFieldXY(matchField *field, int x, int y, int val)
   void initMatchField(matchField *field)
   void freeMatchField(matchField *field)
@@ -46,6 +48,12 @@ cdef class matchFieldPy:
       self.mf.fieldMatrix = &memViewCArr[0]
 
 
+  property simpleComplexity:
+    def __get__(self):
+      return self.mf.simpleComplexity
+    def __set__(self, simpleComplexity):
+      self.mf.simpleComplexity = simpleComplexity
+
   def __exit__(self):
     freeMatchField(&self.mf)
 
@@ -54,6 +62,9 @@ cdef class matchFieldPy:
 
   def printMatchFieldPy(self):
     printMatchField(&self.mf)
+
+  def resetGamePy(self):
+    resetGame(&self.mf)
 
   def zeroMatchFieldPy(self):
     zeroMatchField(&self.mf)

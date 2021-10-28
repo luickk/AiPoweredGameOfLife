@@ -1259,7 +1259,7 @@ typedef npy_clongdouble __pyx_t_5numpy_clongdouble_t;
  */
 typedef npy_cdouble __pyx_t_5numpy_complex_t;
 
-/* "libGameOfLifeWrapper.pyx":19
+/* "libGameOfLifeWrapper.pyx":21
  *   void applyIteration(matchField *field)
  * 
  * cdef class matchFieldPy:             # <<<<<<<<<<<<<<
@@ -2433,6 +2433,8 @@ static PyObject *__pyx_n_s_y;
 static int __pyx_pf_10gameOfLife_12matchFieldPy___init__(struct __pyx_obj_10gameOfLife_matchFieldPy *__pyx_v_self, PyObject *__pyx_v_x, PyObject *__pyx_v_y); /* proto */
 static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix___get__(struct __pyx_obj_10gameOfLife_matchFieldPy *__pyx_v_self); /* proto */
 static int __pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix_2__set__(struct __pyx_obj_10gameOfLife_matchFieldPy *__pyx_v_self, PyObject *__pyx_v_arr); /* proto */
+static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_16simpleComplexity___get__(struct __pyx_obj_10gameOfLife_matchFieldPy *__pyx_v_self); /* proto */
+static int __pyx_pf_10gameOfLife_12matchFieldPy_16simpleComplexity_2__set__(struct __pyx_obj_10gameOfLife_matchFieldPy *__pyx_v_self, PyObject *__pyx_v_simpleComplexity); /* proto */
 static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_2__exit__(struct __pyx_obj_10gameOfLife_matchFieldPy *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_4initMatchFieldPy(struct __pyx_obj_10gameOfLife_matchFieldPy *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_6printMatchFieldPy(struct __pyx_obj_10gameOfLife_matchFieldPy *__pyx_v_self); /* proto */
@@ -2523,7 +2525,7 @@ static PyObject *__pyx_tuple__28;
 static PyObject *__pyx_codeobj__29;
 /* Late includes */
 
-/* "libGameOfLifeWrapper.pyx":22
+/* "libGameOfLifeWrapper.pyx":24
  *   cdef matchField mf
  * 
  *   def __init__(self, x, y):             # <<<<<<<<<<<<<<
@@ -2565,11 +2567,11 @@ static int __pyx_pw_10gameOfLife_12matchFieldPy_1__init__(PyObject *__pyx_v_self
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, 1); __PYX_ERR(0, 22, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, 1); __PYX_ERR(0, 24, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 22, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 24, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -2582,7 +2584,7 @@ static int __pyx_pw_10gameOfLife_12matchFieldPy_1__init__(PyObject *__pyx_v_self
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 22, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 24, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("gameOfLife.matchFieldPy.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2604,27 +2606,27 @@ static int __pyx_pf_10gameOfLife_12matchFieldPy___init__(struct __pyx_obj_10game
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "libGameOfLifeWrapper.pyx":23
+  /* "libGameOfLifeWrapper.pyx":25
  * 
  *   def __init__(self, x, y):
  *     self.mf.xSize = x;             # <<<<<<<<<<<<<<
  *     self.mf.ySize = y;
  *     initMatchField(&self.mf)
  */
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_x); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_x); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 25, __pyx_L1_error)
   __pyx_v_self->mf.xSize = __pyx_t_1;
 
-  /* "libGameOfLifeWrapper.pyx":24
+  /* "libGameOfLifeWrapper.pyx":26
  *   def __init__(self, x, y):
  *     self.mf.xSize = x;
  *     self.mf.ySize = y;             # <<<<<<<<<<<<<<
  *     initMatchField(&self.mf)
  * 
  */
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_y); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_y); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 26, __pyx_L1_error)
   __pyx_v_self->mf.ySize = __pyx_t_1;
 
-  /* "libGameOfLifeWrapper.pyx":25
+  /* "libGameOfLifeWrapper.pyx":27
  *     self.mf.xSize = x;
  *     self.mf.ySize = y;
  *     initMatchField(&self.mf)             # <<<<<<<<<<<<<<
@@ -2633,7 +2635,7 @@ static int __pyx_pf_10gameOfLife_12matchFieldPy___init__(struct __pyx_obj_10game
  */
   initMatchField((&__pyx_v_self->mf));
 
-  /* "libGameOfLifeWrapper.pyx":22
+  /* "libGameOfLifeWrapper.pyx":24
  *   cdef matchField mf
  * 
  *   def __init__(self, x, y):             # <<<<<<<<<<<<<<
@@ -2652,7 +2654,7 @@ static int __pyx_pf_10gameOfLife_12matchFieldPy___init__(struct __pyx_obj_10game
   return __pyx_r;
 }
 
-/* "libGameOfLifeWrapper.pyx":30
+/* "libGameOfLifeWrapper.pyx":32
  *     # memory is then freed by the c freeMatchField at py object free
  *     # when replacing the C fieldMatrix pointer the old array is replaced and the old one freed before
  *     def __get__(self):             # <<<<<<<<<<<<<<
@@ -2692,7 +2694,7 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix___get__(stru
   __pyx_pybuffernd_pyMF.data = NULL;
   __pyx_pybuffernd_pyMF.rcbuffer = &__pyx_pybuffer_pyMF;
 
-  /* "libGameOfLifeWrapper.pyx":32
+  /* "libGameOfLifeWrapper.pyx":34
  *     def __get__(self):
  *       cdef np.npy_intp dims[2]
  *       dims[0] = self.mf.xSize             # <<<<<<<<<<<<<<
@@ -2702,7 +2704,7 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix___get__(stru
   __pyx_t_1 = __pyx_v_self->mf.xSize;
   (__pyx_v_dims[0]) = __pyx_t_1;
 
-  /* "libGameOfLifeWrapper.pyx":33
+  /* "libGameOfLifeWrapper.pyx":35
  *       cdef np.npy_intp dims[2]
  *       dims[0] = self.mf.xSize
  *       dims[1] = self.mf.ySize             # <<<<<<<<<<<<<<
@@ -2712,22 +2714,22 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix___get__(stru
   __pyx_t_1 = __pyx_v_self->mf.ySize;
   (__pyx_v_dims[1]) = __pyx_t_1;
 
-  /* "libGameOfLifeWrapper.pyx":34
+  /* "libGameOfLifeWrapper.pyx":36
  *       dims[0] = self.mf.xSize
  *       dims[1] = self.mf.ySize
  *       cdef np.ndarray[dtype=np.uint8_t, ndim=2] pyMF = np.PyArray_SimpleNewFromData(2, &dims[0], np.NPY_UINT8, self.mf.fieldMatrix)             # <<<<<<<<<<<<<<
  *       return pyMF
  *     def __set__(self, arr):
  */
-  __pyx_t_2 = PyArray_SimpleNewFromData(2, (&(__pyx_v_dims[0])), NPY_UINT8, __pyx_v_self->mf.fieldMatrix); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __pyx_t_2 = PyArray_SimpleNewFromData(2, (&(__pyx_v_dims[0])), NPY_UINT8, __pyx_v_self->mf.fieldMatrix); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 34, __pyx_L1_error)
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 36, __pyx_L1_error)
   __pyx_t_3 = ((PyArrayObject *)__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_pyMF.rcbuffer->pybuffer, (PyObject*)__pyx_t_3, &__Pyx_TypeInfo_nn___pyx_t_5numpy_uint8_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_pyMF = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_pyMF.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 34, __pyx_L1_error)
+      __PYX_ERR(0, 36, __pyx_L1_error)
     } else {__pyx_pybuffernd_pyMF.diminfo[0].strides = __pyx_pybuffernd_pyMF.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_pyMF.diminfo[0].shape = __pyx_pybuffernd_pyMF.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_pyMF.diminfo[1].strides = __pyx_pybuffernd_pyMF.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_pyMF.diminfo[1].shape = __pyx_pybuffernd_pyMF.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -2735,7 +2737,7 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix___get__(stru
   __pyx_v_pyMF = ((PyArrayObject *)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "libGameOfLifeWrapper.pyx":35
+  /* "libGameOfLifeWrapper.pyx":37
  *       dims[1] = self.mf.ySize
  *       cdef np.ndarray[dtype=np.uint8_t, ndim=2] pyMF = np.PyArray_SimpleNewFromData(2, &dims[0], np.NPY_UINT8, self.mf.fieldMatrix)
  *       return pyMF             # <<<<<<<<<<<<<<
@@ -2747,7 +2749,7 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix___get__(stru
   __pyx_r = ((PyObject *)__pyx_v_pyMF);
   goto __pyx_L0;
 
-  /* "libGameOfLifeWrapper.pyx":30
+  /* "libGameOfLifeWrapper.pyx":32
  *     # memory is then freed by the c freeMatchField at py object free
  *     # when replacing the C fieldMatrix pointer the old array is replaced and the old one freed before
  *     def __get__(self):             # <<<<<<<<<<<<<<
@@ -2776,7 +2778,7 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix___get__(stru
   return __pyx_r;
 }
 
-/* "libGameOfLifeWrapper.pyx":36
+/* "libGameOfLifeWrapper.pyx":38
  *       cdef np.ndarray[dtype=np.uint8_t, ndim=2] pyMF = np.PyArray_SimpleNewFromData(2, &dims[0], np.NPY_UINT8, self.mf.fieldMatrix)
  *       return pyMF
  *     def __set__(self, arr):             # <<<<<<<<<<<<<<
@@ -2825,19 +2827,19 @@ static int __pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix_2__set__(struct __
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "libGameOfLifeWrapper.pyx":38
+  /* "libGameOfLifeWrapper.pyx":40
  *     def __set__(self, arr):
  *       # !warning! frees & allocates new memory every call
  *       cdef np.uint8_t[:,:] memView = arr             # <<<<<<<<<<<<<<
  *       cdef np.uint8_t* memViewCArr = <np.uint8_t *>malloc(self.mf.xSize * self.mf.ySize * sizeof(np.uint8_t))
  *       if not memViewCArr: raise MemoryError
  */
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_nn___pyx_t_5numpy_uint8_t(__pyx_v_arr, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_nn___pyx_t_5numpy_uint8_t(__pyx_v_arr, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 40, __pyx_L1_error)
   __pyx_v_memView = __pyx_t_1;
   __pyx_t_1.memview = NULL;
   __pyx_t_1.data = NULL;
 
-  /* "libGameOfLifeWrapper.pyx":39
+  /* "libGameOfLifeWrapper.pyx":41
  *       # !warning! frees & allocates new memory every call
  *       cdef np.uint8_t[:,:] memView = arr
  *       cdef np.uint8_t* memViewCArr = <np.uint8_t *>malloc(self.mf.xSize * self.mf.ySize * sizeof(np.uint8_t))             # <<<<<<<<<<<<<<
@@ -2846,7 +2848,7 @@ static int __pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix_2__set__(struct __
  */
   __pyx_v_memViewCArr = ((__pyx_t_5numpy_uint8_t *)malloc(((__pyx_v_self->mf.xSize * __pyx_v_self->mf.ySize) * (sizeof(__pyx_t_5numpy_uint8_t)))));
 
-  /* "libGameOfLifeWrapper.pyx":40
+  /* "libGameOfLifeWrapper.pyx":42
  *       cdef np.uint8_t[:,:] memView = arr
  *       cdef np.uint8_t* memViewCArr = <np.uint8_t *>malloc(self.mf.xSize * self.mf.ySize * sizeof(np.uint8_t))
  *       if not memViewCArr: raise MemoryError             # <<<<<<<<<<<<<<
@@ -2855,28 +2857,28 @@ static int __pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix_2__set__(struct __
  */
   __pyx_t_2 = ((!(__pyx_v_memViewCArr != 0)) != 0);
   if (unlikely(__pyx_t_2)) {
-    PyErr_NoMemory(); __PYX_ERR(0, 40, __pyx_L1_error)
+    PyErr_NoMemory(); __PYX_ERR(0, 42, __pyx_L1_error)
   }
 
-  /* "libGameOfLifeWrapper.pyx":41
+  /* "libGameOfLifeWrapper.pyx":43
  *       cdef np.uint8_t* memViewCArr = <np.uint8_t *>malloc(self.mf.xSize * self.mf.ySize * sizeof(np.uint8_t))
  *       if not memViewCArr: raise MemoryError
  *       for j in range(self.mf.xSize):             # <<<<<<<<<<<<<<
  *         for i in range(self.mf.ySize):
  *             memViewCArr[j+self.mf.ySize*i] = memView[j][i]
  */
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_self->mf.xSize); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_self->mf.xSize); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (likely(PyList_CheckExact(__pyx_t_4)) || PyTuple_CheckExact(__pyx_t_4)) {
     __pyx_t_3 = __pyx_t_4; __Pyx_INCREF(__pyx_t_3); __pyx_t_5 = 0;
     __pyx_t_6 = NULL;
   } else {
-    __pyx_t_5 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 41, __pyx_L1_error)
+    __pyx_t_5 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 43, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_6 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 41, __pyx_L1_error)
+    __pyx_t_6 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 43, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   for (;;) {
@@ -2884,17 +2886,17 @@ static int __pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix_2__set__(struct __
       if (likely(PyList_CheckExact(__pyx_t_3))) {
         if (__pyx_t_5 >= PyList_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 41, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 43, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 41, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 43, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_5 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 41, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely(0 < 0)) __PYX_ERR(0, 43, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 41, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 43, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -2904,7 +2906,7 @@ static int __pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix_2__set__(struct __
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 41, __pyx_L1_error)
+          else __PYX_ERR(0, 43, __pyx_L1_error)
         }
         break;
       }
@@ -2913,25 +2915,25 @@ static int __pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix_2__set__(struct __
     __Pyx_XDECREF_SET(__pyx_v_j, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "libGameOfLifeWrapper.pyx":42
+    /* "libGameOfLifeWrapper.pyx":44
  *       if not memViewCArr: raise MemoryError
  *       for j in range(self.mf.xSize):
  *         for i in range(self.mf.ySize):             # <<<<<<<<<<<<<<
  *             memViewCArr[j+self.mf.ySize*i] = memView[j][i]
  * 
  */
-    __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_self->mf.ySize); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 42, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_self->mf.ySize); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 44, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 42, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 44, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     if (likely(PyList_CheckExact(__pyx_t_7)) || PyTuple_CheckExact(__pyx_t_7)) {
       __pyx_t_4 = __pyx_t_7; __Pyx_INCREF(__pyx_t_4); __pyx_t_8 = 0;
       __pyx_t_9 = NULL;
     } else {
-      __pyx_t_8 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 42, __pyx_L1_error)
+      __pyx_t_8 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 44, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_9 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 42, __pyx_L1_error)
+      __pyx_t_9 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 44, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     for (;;) {
@@ -2939,17 +2941,17 @@ static int __pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix_2__set__(struct __
         if (likely(PyList_CheckExact(__pyx_t_4))) {
           if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_4)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_7 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_8); __Pyx_INCREF(__pyx_t_7); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 42, __pyx_L1_error)
+          __pyx_t_7 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_8); __Pyx_INCREF(__pyx_t_7); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 44, __pyx_L1_error)
           #else
-          __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 42, __pyx_L1_error)
+          __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 44, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
           #endif
         } else {
           if (__pyx_t_8 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_8); __Pyx_INCREF(__pyx_t_7); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 42, __pyx_L1_error)
+          __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_8); __Pyx_INCREF(__pyx_t_7); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 44, __pyx_L1_error)
           #else
-          __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 42, __pyx_L1_error)
+          __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 44, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
           #endif
         }
@@ -2959,7 +2961,7 @@ static int __pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix_2__set__(struct __
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 42, __pyx_L1_error)
+            else __PYX_ERR(0, 44, __pyx_L1_error)
           }
           break;
         }
@@ -2968,15 +2970,15 @@ static int __pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix_2__set__(struct __
       __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_7);
       __pyx_t_7 = 0;
 
-      /* "libGameOfLifeWrapper.pyx":43
+      /* "libGameOfLifeWrapper.pyx":45
  *       for j in range(self.mf.xSize):
  *         for i in range(self.mf.ySize):
  *             memViewCArr[j+self.mf.ySize*i] = memView[j][i]             # <<<<<<<<<<<<<<
  * 
  *       free(self.mf.fieldMatrix)
  */
-      __pyx_t_10 = __Pyx_PyIndex_AsSsize_t(__pyx_v_j); if (unlikely((__pyx_t_10 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 43, __pyx_L1_error)
-      __pyx_t_11 = __Pyx_PyIndex_AsSsize_t(__pyx_v_i); if (unlikely((__pyx_t_11 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 43, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyIndex_AsSsize_t(__pyx_v_j); if (unlikely((__pyx_t_10 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 45, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyIndex_AsSsize_t(__pyx_v_i); if (unlikely((__pyx_t_11 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 45, __pyx_L1_error)
       __pyx_t_12 = __pyx_t_10;
       __pyx_t_13 = __pyx_t_11;
       __pyx_t_14 = -1;
@@ -2990,21 +2992,21 @@ static int __pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix_2__set__(struct __
       } else if (unlikely(__pyx_t_13 >= __pyx_v_memView.shape[1])) __pyx_t_14 = 1;
       if (unlikely(__pyx_t_14 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_14);
-        __PYX_ERR(0, 43, __pyx_L1_error)
+        __PYX_ERR(0, 45, __pyx_L1_error)
       }
-      __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_self->mf.ySize); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 43, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_self->mf.ySize); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 45, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_15 = PyNumber_Multiply(__pyx_t_7, __pyx_v_i); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 43, __pyx_L1_error)
+      __pyx_t_15 = PyNumber_Multiply(__pyx_t_7, __pyx_v_i); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 45, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_15);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = PyNumber_Add(__pyx_v_j, __pyx_t_15); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 43, __pyx_L1_error)
+      __pyx_t_7 = PyNumber_Add(__pyx_v_j, __pyx_t_15); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 45, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-      __pyx_t_16 = __Pyx_PyIndex_AsSsize_t(__pyx_t_7); if (unlikely((__pyx_t_16 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 43, __pyx_L1_error)
+      __pyx_t_16 = __Pyx_PyIndex_AsSsize_t(__pyx_t_7); if (unlikely((__pyx_t_16 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 45, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       (__pyx_v_memViewCArr[__pyx_t_16]) = (*((__pyx_t_5numpy_uint8_t *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_memView.data + __pyx_t_12 * __pyx_v_memView.strides[0]) ) + __pyx_t_13 * __pyx_v_memView.strides[1]) )));
 
-      /* "libGameOfLifeWrapper.pyx":42
+      /* "libGameOfLifeWrapper.pyx":44
  *       if not memViewCArr: raise MemoryError
  *       for j in range(self.mf.xSize):
  *         for i in range(self.mf.ySize):             # <<<<<<<<<<<<<<
@@ -3014,7 +3016,7 @@ static int __pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix_2__set__(struct __
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "libGameOfLifeWrapper.pyx":41
+    /* "libGameOfLifeWrapper.pyx":43
  *       cdef np.uint8_t* memViewCArr = <np.uint8_t *>malloc(self.mf.xSize * self.mf.ySize * sizeof(np.uint8_t))
  *       if not memViewCArr: raise MemoryError
  *       for j in range(self.mf.xSize):             # <<<<<<<<<<<<<<
@@ -3024,7 +3026,7 @@ static int __pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix_2__set__(struct __
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "libGameOfLifeWrapper.pyx":45
+  /* "libGameOfLifeWrapper.pyx":47
  *             memViewCArr[j+self.mf.ySize*i] = memView[j][i]
  * 
  *       free(self.mf.fieldMatrix)             # <<<<<<<<<<<<<<
@@ -3033,7 +3035,7 @@ static int __pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix_2__set__(struct __
  */
   free(__pyx_v_self->mf.fieldMatrix);
 
-  /* "libGameOfLifeWrapper.pyx":46
+  /* "libGameOfLifeWrapper.pyx":48
  * 
  *       free(self.mf.fieldMatrix)
  *       self.mf.fieldMatrix = &memViewCArr[0]             # <<<<<<<<<<<<<<
@@ -3042,7 +3044,7 @@ static int __pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix_2__set__(struct __
  */
   __pyx_v_self->mf.fieldMatrix = (&(__pyx_v_memViewCArr[0]));
 
-  /* "libGameOfLifeWrapper.pyx":36
+  /* "libGameOfLifeWrapper.pyx":38
  *       cdef np.ndarray[dtype=np.uint8_t, ndim=2] pyMF = np.PyArray_SimpleNewFromData(2, &dims[0], np.NPY_UINT8, self.mf.fieldMatrix)
  *       return pyMF
  *     def __set__(self, arr):             # <<<<<<<<<<<<<<
@@ -3069,8 +3071,130 @@ static int __pyx_pf_10gameOfLife_12matchFieldPy_11fieldMatrix_2__set__(struct __
   return __pyx_r;
 }
 
-/* "libGameOfLifeWrapper.pyx":49
+/* "libGameOfLifeWrapper.pyx":52
  * 
+ *   property simpleComplexity:
+ *     def __get__(self):             # <<<<<<<<<<<<<<
+ *       return self.mf.simpleComplexity
+ *     def __set__(self, simpleComplexity):
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_10gameOfLife_12matchFieldPy_16simpleComplexity_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_10gameOfLife_12matchFieldPy_16simpleComplexity_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_10gameOfLife_12matchFieldPy_16simpleComplexity___get__(((struct __pyx_obj_10gameOfLife_matchFieldPy *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_16simpleComplexity___get__(struct __pyx_obj_10gameOfLife_matchFieldPy *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__get__", 0);
+
+  /* "libGameOfLifeWrapper.pyx":53
+ *   property simpleComplexity:
+ *     def __get__(self):
+ *       return self.mf.simpleComplexity             # <<<<<<<<<<<<<<
+ *     def __set__(self, simpleComplexity):
+ *       self.mf.simpleComplexity = simpleComplexity
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->mf.simpleComplexity); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "libGameOfLifeWrapper.pyx":52
+ * 
+ *   property simpleComplexity:
+ *     def __get__(self):             # <<<<<<<<<<<<<<
+ *       return self.mf.simpleComplexity
+ *     def __set__(self, simpleComplexity):
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("gameOfLife.matchFieldPy.simpleComplexity.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "libGameOfLifeWrapper.pyx":54
+ *     def __get__(self):
+ *       return self.mf.simpleComplexity
+ *     def __set__(self, simpleComplexity):             # <<<<<<<<<<<<<<
+ *       self.mf.simpleComplexity = simpleComplexity
+ * 
+ */
+
+/* Python wrapper */
+static int __pyx_pw_10gameOfLife_12matchFieldPy_16simpleComplexity_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_simpleComplexity); /*proto*/
+static int __pyx_pw_10gameOfLife_12matchFieldPy_16simpleComplexity_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_simpleComplexity) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_10gameOfLife_12matchFieldPy_16simpleComplexity_2__set__(((struct __pyx_obj_10gameOfLife_matchFieldPy *)__pyx_v_self), ((PyObject *)__pyx_v_simpleComplexity));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_10gameOfLife_12matchFieldPy_16simpleComplexity_2__set__(struct __pyx_obj_10gameOfLife_matchFieldPy *__pyx_v_self, PyObject *__pyx_v_simpleComplexity) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__set__", 0);
+
+  /* "libGameOfLifeWrapper.pyx":55
+ *       return self.mf.simpleComplexity
+ *     def __set__(self, simpleComplexity):
+ *       self.mf.simpleComplexity = simpleComplexity             # <<<<<<<<<<<<<<
+ * 
+ *   def __exit__(self):
+ */
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_simpleComplexity); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_v_self->mf.simpleComplexity = __pyx_t_1;
+
+  /* "libGameOfLifeWrapper.pyx":54
+ *     def __get__(self):
+ *       return self.mf.simpleComplexity
+ *     def __set__(self, simpleComplexity):             # <<<<<<<<<<<<<<
+ *       self.mf.simpleComplexity = simpleComplexity
+ * 
+ */
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("gameOfLife.matchFieldPy.simpleComplexity.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "libGameOfLifeWrapper.pyx":57
+ *       self.mf.simpleComplexity = simpleComplexity
  * 
  *   def __exit__(self):             # <<<<<<<<<<<<<<
  *     freeMatchField(&self.mf)
@@ -3095,7 +3219,7 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_2__exit__(struct __pyx_obj
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__exit__", 0);
 
-  /* "libGameOfLifeWrapper.pyx":50
+  /* "libGameOfLifeWrapper.pyx":58
  * 
  *   def __exit__(self):
  *     freeMatchField(&self.mf)             # <<<<<<<<<<<<<<
@@ -3104,8 +3228,8 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_2__exit__(struct __pyx_obj
  */
   freeMatchField((&__pyx_v_self->mf));
 
-  /* "libGameOfLifeWrapper.pyx":49
- * 
+  /* "libGameOfLifeWrapper.pyx":57
+ *       self.mf.simpleComplexity = simpleComplexity
  * 
  *   def __exit__(self):             # <<<<<<<<<<<<<<
  *     freeMatchField(&self.mf)
@@ -3119,7 +3243,7 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_2__exit__(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "libGameOfLifeWrapper.pyx":52
+/* "libGameOfLifeWrapper.pyx":60
  *     freeMatchField(&self.mf)
  * 
  *   def initMatchFieldPy(self):             # <<<<<<<<<<<<<<
@@ -3145,7 +3269,7 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_4initMatchFieldPy(struct _
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("initMatchFieldPy", 0);
 
-  /* "libGameOfLifeWrapper.pyx":53
+  /* "libGameOfLifeWrapper.pyx":61
  * 
  *   def initMatchFieldPy(self):
  *     initMatchField(&self.mf)             # <<<<<<<<<<<<<<
@@ -3154,7 +3278,7 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_4initMatchFieldPy(struct _
  */
   initMatchField((&__pyx_v_self->mf));
 
-  /* "libGameOfLifeWrapper.pyx":52
+  /* "libGameOfLifeWrapper.pyx":60
  *     freeMatchField(&self.mf)
  * 
  *   def initMatchFieldPy(self):             # <<<<<<<<<<<<<<
@@ -3169,7 +3293,7 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_4initMatchFieldPy(struct _
   return __pyx_r;
 }
 
-/* "libGameOfLifeWrapper.pyx":55
+/* "libGameOfLifeWrapper.pyx":63
  *     initMatchField(&self.mf)
  * 
  *   def printMatchFieldPy(self):             # <<<<<<<<<<<<<<
@@ -3195,7 +3319,7 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_6printMatchFieldPy(struct 
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("printMatchFieldPy", 0);
 
-  /* "libGameOfLifeWrapper.pyx":56
+  /* "libGameOfLifeWrapper.pyx":64
  * 
  *   def printMatchFieldPy(self):
  *     printMatchField(&self.mf)             # <<<<<<<<<<<<<<
@@ -3204,7 +3328,7 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_6printMatchFieldPy(struct 
  */
   printMatchField((&__pyx_v_self->mf));
 
-  /* "libGameOfLifeWrapper.pyx":55
+  /* "libGameOfLifeWrapper.pyx":63
  *     initMatchField(&self.mf)
  * 
  *   def printMatchFieldPy(self):             # <<<<<<<<<<<<<<
@@ -3219,7 +3343,7 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_6printMatchFieldPy(struct 
   return __pyx_r;
 }
 
-/* "libGameOfLifeWrapper.pyx":58
+/* "libGameOfLifeWrapper.pyx":66
  *     printMatchField(&self.mf)
  * 
  *   def zeroMatchFieldPy(self):             # <<<<<<<<<<<<<<
@@ -3245,7 +3369,7 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_8zeroMatchFieldPy(struct _
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("zeroMatchFieldPy", 0);
 
-  /* "libGameOfLifeWrapper.pyx":59
+  /* "libGameOfLifeWrapper.pyx":67
  * 
  *   def zeroMatchFieldPy(self):
  *     zeroMatchField(&self.mf)             # <<<<<<<<<<<<<<
@@ -3254,7 +3378,7 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_8zeroMatchFieldPy(struct _
  */
   zeroMatchField((&__pyx_v_self->mf));
 
-  /* "libGameOfLifeWrapper.pyx":58
+  /* "libGameOfLifeWrapper.pyx":66
  *     printMatchField(&self.mf)
  * 
  *   def zeroMatchFieldPy(self):             # <<<<<<<<<<<<<<
@@ -3269,7 +3393,7 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_8zeroMatchFieldPy(struct _
   return __pyx_r;
 }
 
-/* "libGameOfLifeWrapper.pyx":61
+/* "libGameOfLifeWrapper.pyx":69
  *     zeroMatchField(&self.mf)
  * 
  *   def setMatchFieldXYpy(self, x, y, val):             # <<<<<<<<<<<<<<
@@ -3314,17 +3438,17 @@ static PyObject *__pyx_pw_10gameOfLife_12matchFieldPy_11setMatchFieldXYpy(PyObje
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("setMatchFieldXYpy", 1, 3, 3, 1); __PYX_ERR(0, 61, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("setMatchFieldXYpy", 1, 3, 3, 1); __PYX_ERR(0, 69, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_val)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("setMatchFieldXYpy", 1, 3, 3, 2); __PYX_ERR(0, 61, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("setMatchFieldXYpy", 1, 3, 3, 2); __PYX_ERR(0, 69, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "setMatchFieldXYpy") < 0)) __PYX_ERR(0, 61, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "setMatchFieldXYpy") < 0)) __PYX_ERR(0, 69, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -3339,7 +3463,7 @@ static PyObject *__pyx_pw_10gameOfLife_12matchFieldPy_11setMatchFieldXYpy(PyObje
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("setMatchFieldXYpy", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 61, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("setMatchFieldXYpy", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 69, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("gameOfLife.matchFieldPy.setMatchFieldXYpy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3363,19 +3487,19 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_10setMatchFieldXYpy(struct
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setMatchFieldXYpy", 0);
 
-  /* "libGameOfLifeWrapper.pyx":62
+  /* "libGameOfLifeWrapper.pyx":70
  * 
  *   def setMatchFieldXYpy(self, x, y, val):
  *     setMatchFieldXY(&self.mf, x, y, val)             # <<<<<<<<<<<<<<
  * 
  *   def applyIterationPy(self):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_x); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 62, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_y); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 62, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_val); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_x); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 70, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_y); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 70, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_val); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 70, __pyx_L1_error)
   setMatchFieldXY((&__pyx_v_self->mf), __pyx_t_1, __pyx_t_2, __pyx_t_3);
 
-  /* "libGameOfLifeWrapper.pyx":61
+  /* "libGameOfLifeWrapper.pyx":69
  *     zeroMatchField(&self.mf)
  * 
  *   def setMatchFieldXYpy(self, x, y, val):             # <<<<<<<<<<<<<<
@@ -3395,7 +3519,7 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_10setMatchFieldXYpy(struct
   return __pyx_r;
 }
 
-/* "libGameOfLifeWrapper.pyx":64
+/* "libGameOfLifeWrapper.pyx":72
  *     setMatchFieldXY(&self.mf, x, y, val)
  * 
  *   def applyIterationPy(self):             # <<<<<<<<<<<<<<
@@ -3420,14 +3544,14 @@ static PyObject *__pyx_pf_10gameOfLife_12matchFieldPy_12applyIterationPy(struct 
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("applyIterationPy", 0);
 
-  /* "libGameOfLifeWrapper.pyx":65
+  /* "libGameOfLifeWrapper.pyx":73
  * 
  *   def applyIterationPy(self):
  *     applyIteration(&self.mf)             # <<<<<<<<<<<<<<
  */
   applyIteration((&__pyx_v_self->mf));
 
-  /* "libGameOfLifeWrapper.pyx":64
+  /* "libGameOfLifeWrapper.pyx":72
  *     setMatchFieldXY(&self.mf, x, y, val)
  * 
  *   def applyIterationPy(self):             # <<<<<<<<<<<<<<
@@ -17623,6 +17747,20 @@ static int __pyx_setprop_10gameOfLife_12matchFieldPy_fieldMatrix(PyObject *o, Py
   }
 }
 
+static PyObject *__pyx_getprop_10gameOfLife_12matchFieldPy_simpleComplexity(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_10gameOfLife_12matchFieldPy_16simpleComplexity_1__get__(o);
+}
+
+static int __pyx_setprop_10gameOfLife_12matchFieldPy_simpleComplexity(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_10gameOfLife_12matchFieldPy_16simpleComplexity_3__set__(o, v);
+  }
+  else {
+    PyErr_SetString(PyExc_NotImplementedError, "__del__");
+    return -1;
+  }
+}
+
 static PyMethodDef __pyx_methods_10gameOfLife_matchFieldPy[] = {
   {"__exit__", (PyCFunction)__pyx_pw_10gameOfLife_12matchFieldPy_3__exit__, METH_NOARGS, 0},
   {"initMatchFieldPy", (PyCFunction)__pyx_pw_10gameOfLife_12matchFieldPy_5initMatchFieldPy, METH_NOARGS, 0},
@@ -17637,6 +17775,7 @@ static PyMethodDef __pyx_methods_10gameOfLife_matchFieldPy[] = {
 
 static struct PyGetSetDef __pyx_getsets_10gameOfLife_matchFieldPy[] = {
   {(char *)"fieldMatrix", __pyx_getprop_10gameOfLife_12matchFieldPy_fieldMatrix, __pyx_setprop_10gameOfLife_12matchFieldPy_fieldMatrix, (char *)0, 0},
+  {(char *)"simpleComplexity", __pyx_getprop_10gameOfLife_12matchFieldPy_simpleComplexity, __pyx_setprop_10gameOfLife_12matchFieldPy_simpleComplexity, (char *)0, 0},
   {0, 0, 0, 0, 0}
 };
 
@@ -18567,8 +18706,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) __PYX_ERR(0, 40, __pyx_L1_error)
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) __PYX_ERR(0, 42, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 43, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(1, 2, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(2, 945, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 133, __pyx_L1_error)
@@ -18944,15 +19083,15 @@ static int __Pyx_modinit_type_init_code(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_10gameOfLife_matchFieldPy) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_10gameOfLife_matchFieldPy) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_10gameOfLife_matchFieldPy.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_10gameOfLife_matchFieldPy.tp_dictoffset && __pyx_type_10gameOfLife_matchFieldPy.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_10gameOfLife_matchFieldPy.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_matchFieldPy, (PyObject *)&__pyx_type_10gameOfLife_matchFieldPy) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_10gameOfLife_matchFieldPy) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_matchFieldPy, (PyObject *)&__pyx_type_10gameOfLife_matchFieldPy) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_10gameOfLife_matchFieldPy) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
   __pyx_ptype_10gameOfLife_matchFieldPy = &__pyx_type_10gameOfLife_matchFieldPy;
   __pyx_vtabptr_array = &__pyx_vtable_array;
   __pyx_vtable_array.get_memview = (PyObject *(*)(struct __pyx_array_obj *))__pyx_array_get_memview;

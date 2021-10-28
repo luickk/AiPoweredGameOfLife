@@ -37,6 +37,11 @@ void freeMatchField(struct matchField *field) {
   free(field);
 }
 
+void resetGame(struct matchField *field) {
+  zeroMatchField(field);
+  field->simpleComplexity = 0;
+}
+
 int fieldBoundaryCheck(struct matchField *field, int x, int y) {
   if (field->xSize >= x && field->ySize >= y) {
     return 1;
@@ -47,15 +52,6 @@ int fieldBoundaryCheck(struct matchField *field, int x, int y) {
 void getNneighbours(struct matchField *field, int x, int y, int *nNeighbours) {
   *nNeighbours = 0;
   if (fieldBoundaryCheck(field, x, y)) {
-    // *nNeighbours += field->fieldMatrix[x-1][y];
-    // *nNeighbours += field->fieldMatrix[x+1][y];
-    // *nNeighbours += field->fieldMatrix[x-1][y+1];
-    // *nNeighbours += field->fieldMatrix[x+1][y+1];
-    // *nNeighbours += field->fieldMatrix[x+1][y-1];
-    // *nNeighbours += field->fieldMatrix[x-1][y-1];
-    // *nNeighbours += field->fieldMatrix[x][y+1];
-    // *nNeighbours += field->fieldMatrix[x][y-1];
-
     *nNeighbours += field->fieldMatrix[(x-1)+field->ySize*y];
     *nNeighbours += field->fieldMatrix[(x+1)+field->ySize*y];
     *nNeighbours += field->fieldMatrix[(x-1)+field->ySize*(y+1)];
@@ -82,10 +78,13 @@ void applyIteration(struct matchField *field) {
       nNeighbours = field->fieldMatrixNeighbourCount[ix+field->ySize*iy];
       if (nNeighbours == 3) {
         field->fieldMatrix[ix+field->ySize*iy] = 1;
+        field->simpleComplexity += 1;
       } else if (nNeighbours < 2) {
         field->fieldMatrix[ix+field->ySize*iy] = 0;
+        field->simpleComplexity += 1;
       } else if (nNeighbours > 3) {
         field->fieldMatrix[ix+field->ySize*iy] = 0;
+        field->simpleComplexity += 1;
       }
     }
   }

@@ -3,6 +3,7 @@
 struct matchField{
   int xSize, ySize;
 
+  int simpleComplexity;
   uint8_t *fieldMatrixNeighbourCount;
 
   // using int for the sake of simplicity TODO: change to bitmask (don't know whether it's even worth the extra computing time)
@@ -16,6 +17,8 @@ int fieldBoundaryCheck(struct matchField *field, int x, int y);
 
 // lib
 void printMatchField(struct matchField *field);
+
+void resetGame(struct matchField *field);
 
 void setMatchFieldXY(struct matchField *field, int x, int y, int val);
 
