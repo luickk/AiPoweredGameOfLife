@@ -13,12 +13,12 @@ from tf_agents.trajectories import time_step as ts
 
 class GolEnv(py_environment.PyEnvironment):
 
-  def __init__(self):
-    self.field = gameOfLife.matchFieldPy(10, 10)
+  def __init__(self, xdim, ydim):
+    self.field = gameOfLife.matchFieldPy(xdim, ydim)
     self.field.zeroMatchFieldPy()
 
-    self._action_spec = array_spec.BoundedArraySpec(shape=(10,10), dtype=np.uint8, minimum=0, maximum=1, name='action')
-    self._observation_spec = array_spec.BoundedArraySpec(shape=(10,10), dtype=np.uint8, minimum=0, maximum=1, name='observation')
+    self._action_spec = array_spec.BoundedArraySpec(shape=(xdim,ydim), dtype=np.uint8, minimum=0, maximum=1, name='action')
+    self._observation_spec = array_spec.BoundedArraySpec(shape=(xdim,ydim), dtype=np.uint8, minimum=0, maximum=1, name='observation')
 
     self._state = self.field.fieldMatrix
     self._episode_ended = False
@@ -45,8 +45,8 @@ class GolEnv(py_environment.PyEnvironment):
     self.field.applyIterationPy()
     self._state = self.field.fieldMatrix
 
-    print(action)
-    print(self.field.simpleComplexity)
+    # print(action)
+    # print(self.field.simpleComplexity)
 
     if self._episode_ended:
       return ts.termination(self._state, self.field.simpleComplexity)

@@ -44,6 +44,8 @@ import gin
 from six.moves import range
 import tensorflow as tf  # pylint: disable=g-explicit-tensorflow-version-import
 
+from gameOfLifeEnv import GolEnv
+
 from tf_agents.agents.ddpg import ddpg_agent
 from tf_agents.drivers import dynamic_step_driver
 from tf_agents.environments import parallel_py_environment
@@ -57,24 +59,14 @@ from tf_agents.networks import sequential
 from tf_agents.replay_buffers import tf_uniform_replay_buffer
 from tf_agents.utils import common
 
+def main():
+  tf.compat.v1.enable_v2_behavior()
+  logging.set_verbosity(logging.INFO)
+  train_eval()
 
-flags.DEFINE_string('root_dir', os.getenv('TEST_UNDECLARED_OUTPUTS_DIR'),
-                    'Root directory for writing logs/summaries/checkpoints.')
-flags.DEFINE_integer('num_iterations', 100000,
-                     'Total number train/eval iterations to perform.')
-flags.DEFINE_multi_string('gin_file', None, 'Paths to the gin-config files.')
-flags.DEFINE_multi_string('gin_param', None, 'Gin binding parameters.')
-
-
-FLAGS = flags.FLAGS
-
-
-@gin.configurable
 def train_eval(
-    root_dir,
-    env_name='HalfCheetah-v2',
-    eval_env_name=None,
-    env_load_fn=suite_mujoco.load,
+    root_dir="tensLogData/",
+    golMatchFieldDims=(10,10),
     num_iterations=2000000,
     actor_fc_layers=(400, 300),
     critic_obs_fc_layers=(400,),
@@ -129,18 +121,11 @@ def train_eval(
   ]
 
   global_step = tf.compat.v1.train.get_or_create_global_step()
-  with tf.compat.v2.summary.record_if(
-      lambda: tf.math.equal(global_step % summary_interval, 0)):
-    if num_parallel_environments > 1:
-      tf_env = tf_py_environment.TFPyEnvironment(
-          parallel_py_environment.ParallelPyEnvironment(
-              [lambda: env_load_fn(env_name)] * num_parallel_environments))
-    else:
-      tf_env = tf_py_environment.TFPyEnvironment(env_load_fn(env_name))
-    eval_env_name = eval_env_name or env_name
-    eval_tf_env = tf_py_environment.TFPyEnvironment(env_load_fn(eval_env_name))
+  with tf.compat.v2.summary.record_if(lambda: tf.math.equal(global_step % summary_interval, 0)):
 
-    actor_net = create_actor_network(actor_fc_layers, tf_env.action_spec())
+    tf_env = GolEnv(golMatchFieldDims[0],golMatchFieldDims[1])
+
+    actor_net = create_actor_network(actor_fc_layers, tf_env.action_spec(), golMatchFieldDims)
     critic_net = create_critic_network(critic_obs_fc_layers,
                                        critic_action_fc_layers,
                                        critic_joint_fc_layers)
@@ -295,7 +280,7 @@ def create_fc_network(layer_units):
   return sequential.Sequential([dense(num_units) for num_units in layer_units])
 
 
-def create_actor_network(fc_layer_units, action_spec):
+def create_actor_network(fc_layer_units, action_spec, golMatchFieldDims):
   """Create an actor network for DDPG."""
   flat_action_spec = tf.nest.flatten(action_spec)
   if len(flat_action_spec) > 1:
@@ -304,7 +289,7 @@ def create_actor_network(fc_layer_units, action_spec):
 
   fc_layers = [dense(num_units) for num_units in fc_layer_units]
 
-  num_actions = flat_action_spec.shape.num_elements()
+  num_actions = golMatchFieldDims[0]*golMatchFieldDims[1]
   action_fc_layer = tf.keras.layers.Dense(
       num_actions,
       activation=tf.keras.activations.tanh,
@@ -351,13 +336,5 @@ def create_critic_network(obs_fc_layer_units,
       inner_reshape.InnerReshape([1], [])
   ])
 
-
-def main(_):
-  tf.compat.v1.enable_v2_behavior()
-  logging.set_verbosity(logging.INFO)
-  gin.parse_config_files_and_bindings(FLAGS.gin_file, FLAGS.gin_param)
-  train_eval(FLAGS.root_dir, num_iterations=FLAGS.num_iterations)
-
 if __name__ == '__main__':
-  flags.mark_flag_as_required('root_dir')
-  app.run(main)
+  main()
