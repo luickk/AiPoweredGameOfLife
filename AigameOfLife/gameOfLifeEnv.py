@@ -1,6 +1,6 @@
 import tensorflow as tf
 import numpy as np
-import Cython.gameOfLife
+from Cython import gameOfLife
 
 from tf_agents.environments import py_environment
 from tf_agents.environments import tf_environment
@@ -17,10 +17,8 @@ class GolEnv(py_environment.PyEnvironment):
     self.field = gameOfLife.matchFieldPy(10, 10)
     self.field.zeroMatchFieldPy()
 
-    self._action_spec = array_spec.BoundedArraySpec(
-        shape=(), dtype=np.int32, minimum=0, maximum=1, name='action')
-    self._observation_spec = array_spec.BoundedArraySpec(
-        shape=(10,10), dtype=np.int32, minimum=0, maximum=10, name='observation')
+    self._action_spec = array_spec.BoundedArraySpec(shape=(10,10), dtype=np.uint8, minimum=0, maximum=1, name='action')
+    self._observation_spec = array_spec.BoundedArraySpec(shape=(10,10), dtype=np.uint8, minimum=0, maximum=1, name='observation')
 
     self._state = self.field.fieldMatrix
     self._episode_ended = False
@@ -34,20 +32,23 @@ class GolEnv(py_environment.PyEnvironment):
   def _reset(self):
     self.field.resetGamePy()
     self._episode_ended = False
-    return ts.restart(np.array([self._state], dtype=np.int32))
+    return ts.restart(np.array(self._state, dtype=np.uint8))
 
   def _step(self, action):
-
     if self._episode_ended:
       # The last action ended the episode. Ignore the current action and start
       # a new episode.
       return self.reset()
+    self.field.simpleComplexity = 0
 
-    printl(action)
+    self.field.fieldMatrix = action
+    self.field.applyIterationPy()
+    self._state = self.field.fieldMatrix
 
-    if self._episode_ended or self._state >= 21:
-      reward = 89
-      return ts.termination(np.array([self._state], dtype=np.int32), reward)
+    print(action)
+    print(self.field.simpleComplexity)
+
+    if self._episode_ended:
+      return ts.termination(self._state, self.field.simpleComplexity)
     else:
-      return ts.transition(
-          np.array([self._state], dtype=np.int32), reward=0.0, discount=1.0)
+      return ts.transition(self._state, reward=self.field.simpleComplexity)
