@@ -42,12 +42,12 @@ from absl import logging
 
 import gin
 from six.moves import range
-import tensorflow as tf
+import tensorflow as tf  # pylint: disable=g-explicit-tensorflow-version-import
 
 from gameOfLifeEnv import GolEnv
 
 from tf_agents.agents.ddpg import ddpg_agent
-from tf_agents.drivers import py_driver
+from tf_agents.drivers import dynamic_step_driver
 from tf_agents.environments import parallel_py_environment
 from tf_agents.environments import suite_mujoco
 from tf_agents.environments import tf_py_environment
@@ -58,10 +58,6 @@ from tf_agents.networks import nest_map
 from tf_agents.networks import sequential
 from tf_agents.replay_buffers import tf_uniform_replay_buffer
 from tf_agents.utils import common
-from tf_agents.policies import random_tf_policy
-from tf_agents.specs import tensor_spec
-from tf_agents.policies import py_tf_eager_policy
-from tf_agents.trajectories import trajectory
 
 def main():
   tf.compat.v1.enable_v2_behavior()
@@ -84,7 +80,7 @@ def train_eval(
     target_update_period=5,
     # Params for train
     train_steps_per_iteration=1,
-    batch_size=1,
+    batch_size=64,
     actor_learning_rate=1e-4,
     critic_learning_rate=1e-3,
     actor_fc_layers=(400, 300),
@@ -135,39 +131,62 @@ def train_eval(
         train_step_counter=global_step)
     tf_agent.initialize()
 
-    time_step = tf_env.reset()
-
     eval_policy = tf_agent.policy
     collect_policy = tf_agent.collect_policy
 
-    num_steps = 0
-    num_episodes = 0
+    replay_buffer = tf_uniform_replay_buffer.TFUniformReplayBuffer(
+        tf_agent.collect_data_spec,
+        batch_size=tf_env.batch_size,
+        max_length=replay_buffer_capacity)
 
-    my_random_tf_policy = random_tf_policy.RandomTFPolicy(action_spec=tf_env.action_spec(), time_step_spec=tf_env.time_step_spec())
+    initial_collect_driver = dynamic_step_driver.DynamicStepDriver(
+        tf_env,
+        collect_policy,
+        observers=[replay_buffer.add_batch],
+        num_steps=initial_collect_steps)
 
-    action_step = my_random_tf_policy.action(time_step, time_step)
+    collect_driver = dynamic_step_driver.DynamicStepDriver(
+        tf_env,
+        collect_policy,
+        observers=[replay_buffer.add_batch],
+        num_steps=collect_steps_per_iteration)
 
+    # Collect initial replay data.
+    logging.info(
+        'Initializing replay buffer by collecting experience for %d steps with '
+        'a random policy.', initial_collect_steps)
+    initial_collect_driver.run()
+
+    time_step = None
+    policy_state = collect_policy.get_initial_state(tf_env.batch_size)
+
+    time_acc = 0
+
+    # Dataset generates trajectories with shape [Bx2x...]
+    dataset = replay_buffer.as_dataset(
+        num_parallel_calls=3,
+        sample_batch_size=batch_size,
+        num_steps=2).prefetch(3)
+    iterator = iter(dataset)
+
+    def train_step():
+      experience, _ = next(iterator)
+      return tf_agent.train(experience)
+
+    if use_tf_functions:
+      train_step = common.function(train_step)
 
     for _ in range(num_iterations):
-      next_time_step = tf_env.step(action_step.action)
+      start_time = time.time()
+      time_step, policy_state = collect_driver.run(
+          time_step=time_step,
+          policy_state=policy_state,
+      )
+      for _ in range(train_steps_per_iteration):
+        train_loss = train_step()
+      time_acc += time.time() - start_time
 
-      traj = trajectory.Trajectory(
-         time_step.step_type,
-         time_step.observation,
-         action_step.action,
-         action_step.info,
-         next_time_step.step_type,
-         next_time_step.reward,
-         next_time_step.discount)
-
-      time_step = next_time_step
-      policy_state = action_step.state
-
-      train_loss = tf_agent.train(traj).loss
-
-      step = tf_agent.train_step_counter.numpy()
-
-
+    return train_loss
 
 
 dense = functools.partial(

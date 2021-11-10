@@ -17,8 +17,8 @@ class GolEnv(py_environment.PyEnvironment):
     self.field = gameOfLife.matchFieldPy(xdim, ydim)
     self.field.zeroMatchFieldPy()
 
-    self._action_spec = array_spec.BoundedArraySpec(shape=(xdim,ydim), dtype=np.uint8, minimum=0, maximum=1, name='action')
-    self._observation_spec = array_spec.BoundedArraySpec(shape=(xdim,ydim), dtype=np.uint8, minimum=0, maximum=1, name='observation')
+    self._action_spec = array_spec.BoundedArraySpec(shape=(xdim,ydim), dtype=np.float32, minimum=0, maximum=1, name='action')
+    self._observation_spec = array_spec.BoundedArraySpec(shape=(xdim,ydim), dtype=np.float32, minimum=0, maximum=1, name='observation')
 
     self._state = self.field.fieldMatrix
     self._episode_ended = False
@@ -32,23 +32,22 @@ class GolEnv(py_environment.PyEnvironment):
   def _reset(self):
     self.field.resetGamePy()
     self._episode_ended = False
-    return ts.restart(np.array(self._state, dtype=np.uint8))
+    return ts.restart(np.array(self._state, dtype=np.float32))
 
   def _step(self, action):
     if self._episode_ended:
-      # The last action ended the episode. Ignore the current action and start
-      # a new episode.
       return self.reset()
     self.field.simpleComplexity = 0
 
-    self.field.fieldMatrix = action
+    # implicitly casting between uint8 and float32
+    self.field.fieldMatrix = action.astype(np.uint8)
     self.field.applyIterationPy()
-    self._state = self.field.fieldMatrix
+    self._state = self.field.fieldMatrix.astype(np.float32)
 
     # print(action)
     # print(self.field.simpleComplexity)
 
     if self._episode_ended:
-      return ts.termination(self._state, self.field.simpleComplexity)
+      return ts.termination([self._state], self.field.simpleComplexity)
     else:
-      return ts.transition(self._state, reward=self.field.simpleComplexity)
+      return ts.transition([self._state], reward=self.field.simpleComplexity)
