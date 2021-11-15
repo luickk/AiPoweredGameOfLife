@@ -48,6 +48,6 @@ class GolEnv(py_environment.PyEnvironment):
     # print(self.field.simpleComplexity)
 
     if self._episode_ended:
-      return ts.termination([self._state], self.field.simpleComplexity)
+      return ts.termination(self._state, self.field.simpleComplexity)
     else:
-      return ts.transition([self._state], reward=self.field.simpleComplexity)
+      return ts.transition(self._state, reward=self.field.simpleComplexity)
