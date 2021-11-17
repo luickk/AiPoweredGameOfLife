@@ -1,4 +1,5 @@
 cimport numpy as np
+import numpy as pnp
 from libc.stdlib cimport malloc, free
 
 np.import_array()
@@ -34,7 +35,8 @@ cdef class matchFieldPy:
       dims[0] = self.mf.xSize
       dims[1] = self.mf.ySize
       cdef np.ndarray[dtype=np.uint8_t, ndim=2] pyMF = np.PyArray_SimpleNewFromData(2, &dims[0], np.NPY_UINT8, self.mf.fieldMatrix)
-      return pyMF
+      # for some reason axis are transposed after mem read
+      return pnp.transpose(pyMF)
     def __set__(self, arr):
       # !warning! frees & allocates new memory every call
       cdef np.uint8_t[:,:] memView = arr

@@ -7,8 +7,8 @@ if __name__ == '__main__':
 
     field.fieldMatrix = np.ones((10,10), dtype=np.uint8)
 
-    field.printMatchFieldPy()
-    print(field.fieldMatrix)
+    # field.printMatchFieldPy()
+    # print(field.fieldMatrix)
 
     field.zeroMatchFieldPy()
 
@@ -16,8 +16,10 @@ if __name__ == '__main__':
     field.setMatchFieldXYpy(6, 5, 1);
     field.setMatchFieldXYpy(7, 5, 1);
 
-    for i in range(100):
+    for i in range(1):
         field.applyIterationPy()
+        print(i)
         print(field.fieldMatrix)
+        field.printMatchFieldPy()
     print(field.simpleComplexity)
     del field

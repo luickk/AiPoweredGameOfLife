@@ -39,13 +39,12 @@ class GolEnv(py_environment.PyEnvironment):
       return self.reset()
     self.field.simpleComplexity = 0
 
+    # TODO: PERFOMANCE OPTIMISATIONS
+
     # implicitly casting between uint8 and float32
-    self.field.fieldMatrix = action.astype(np.uint8)
+    self.field.fieldMatrix = np.around(action).astype(np.uint8)
     self.field.applyIterationPy()
     self._state = self.field.fieldMatrix.astype(np.float32)
-
-    # print(action)
-    # print(self.field.simpleComplexity)
 
     if self._episode_ended:
       return ts.termination(self._state, self.field.simpleComplexity)
