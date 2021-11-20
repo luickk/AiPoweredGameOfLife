@@ -1,6 +1,7 @@
 import os
 import time
 import tf_agents
+import numpy as np
 import tensorflow as tf
 
 from gameOfLifeEnv import GolEnv
@@ -18,27 +19,28 @@ from tf_agents.networks import utils
 from tf_agents.specs import tensor_spec
 
 def main():
-  tf.compat.v1.enable_v2_behavior()
-  logging.set_verbosity(logging.INFO)
   train_eval()
 
 def train_eval(
-    golMatchFieldDims=(12,12),
-    num_iterations=2000000,
+    golMatchFieldDims=(20, 20),
+    golMatchFieldNiter=100,
+    num_iterations=50,
     actor_learning_rate=1e-4,
     critic_learning_rate=1e-3,
     initial_collect_steps=1000,
     replay_buffer_capacity=100000,
     collect_steps_per_iteration=1,
-    batch_size=12):
+    batch_size=4,
+    fc_layer_params=(400,400),
+    observation_fc_layer_params=(400, 400)):
 
     global_step = tf.compat.v1.train.get_or_create_global_step()
 
-    tf_env = tf_py_environment.TFPyEnvironment(GolEnv(golMatchFieldDims[0],golMatchFieldDims[1]))
+    tf_env = tf_py_environment.TFPyEnvironment(GolEnv(golMatchFieldDims[0], golMatchFieldDims[1], golMatchFieldNiter))
 
-    actor_net = ActorNetworkCustom(tf_env.observation_spec(), tf_env.action_spec(), activation_fn=tf.nn.relu, name='ActorNetwork')
+    actor_net = ActorNetworkCustom(tf_env.observation_spec(), tf_env.action_spec(), activation_fn=tf.nn.relu, fc_layer_params=fc_layer_params, name='ActorNetwork')
 
-    critic_net = tf_agents.agents.ddpg.critic_network.CriticNetwork((tf_env.action_spec(), tf_env.observation_spec()), activation_fn=tf.nn.relu, name='CriticNetwork')
+    critic_net = tf_agents.agents.ddpg.critic_network.CriticNetwork((tf_env.action_spec(), tf_env.observation_spec()), observation_fc_layer_params=observation_fc_layer_params, activation_fn=tf.nn.relu, name='CriticNetwork')
 
     tf_agent = ddpg_agent.DdpgAgent(
         tf_env.time_step_spec(),
@@ -95,9 +97,13 @@ def train_eval(
         time_step, policy_state = collect_driver.run(time_step=time_step, policy_state=policy_state)
         experience, _ = next(iterator)
         train_loss = tf_agent.train(experience)
-        print(train_loss.loss)
-        print(time_step.reward)
-    return train_loss
+        tf.print(str(i)+"-Loss: ", train_loss.loss)
+        tf.print(str(i)+"-Reward: ",  time_step.reward)
+        if i == num_iterations-1:
+            est = np.around(collect_policy.action(time_step)[0].numpy()).astype(np.uint8)
+            print(est)
+            np.save("latestRes.npy", np.array((golMatchFieldDims, golMatchFieldNiter, est), dtype=np.object))
+    tf_env.close()
 
 def binaryActFunc():
     return lambda x: tf.round(tf.nn.sigmoid(x))

@@ -1,5 +1,6 @@
 import tensorflow as tf
 import numpy as np
+import sys
 from Cython import gameOfLife
 
 from tf_agents.environments import py_environment
@@ -13,15 +14,17 @@ from tf_agents.trajectories import time_step as ts
 
 class GolEnv(py_environment.PyEnvironment):
 
-  def __init__(self, xdim, ydim):
+  def __init__(self, xdim, ydim, nIterations):
     self.field = gameOfLife.matchFieldPy(xdim, ydim)
     self.field.zeroMatchFieldPy()
+    self.nIteration = nIterations
 
     self._action_spec = array_spec.BoundedArraySpec(shape=(xdim,ydim), dtype=np.float32, minimum=0, maximum=1, name='action')
     self._observation_spec = array_spec.BoundedArraySpec(shape=(xdim,ydim), dtype=np.float32, minimum=0, maximum=1, name='observation')
 
     self._state = self.field.fieldMatrix
     self._episode_ended = False
+    np.set_printoptions(threshold=sys.maxsize)
 
   def action_spec(self):
     return self._action_spec
@@ -42,8 +45,11 @@ class GolEnv(py_environment.PyEnvironment):
     # TODO: PERFOMANCE OPTIMISATIONS
 
     # implicitly casting between uint8 and float32
-    self.field.fieldMatrix = np.around(action).astype(np.uint8)
-    self.field.applyIterationPy()
+    est = np.around(action).astype(np.uint8)
+    # print(est)
+    self.field.fieldMatrix = est
+    for i in range(self.nIteration):
+        self.field.applyIterationPy()
     self._state = self.field.fieldMatrix.astype(np.float32)
 
     if self._episode_ended:
