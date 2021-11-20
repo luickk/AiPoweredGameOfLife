@@ -24,7 +24,7 @@ class GolEnv(py_environment.PyEnvironment):
 
     self._state = self.field.fieldMatrix
     self._episode_ended = False
-    np.set_printoptions(threshold=sys.maxsize)
+    self.lastReward = 0
 
   def action_spec(self):
     return self._action_spec
@@ -45,9 +45,7 @@ class GolEnv(py_environment.PyEnvironment):
     # TODO: PERFOMANCE OPTIMISATIONS
 
     # implicitly casting between uint8 and float32
-    est = np.around(action).astype(np.uint8)
-    # print(est)
-    self.field.fieldMatrix = est
+    self.field.fieldMatrix = np.around(action).astype(np.uint8)
     for i in range(self.nIteration):
         self.field.applyIterationPy()
     self._state = self.field.fieldMatrix.astype(np.float32)
@@ -55,4 +53,6 @@ class GolEnv(py_environment.PyEnvironment):
     if self._episode_ended:
       return ts.termination(self._state, self.field.simpleComplexity)
     else:
-      return ts.transition(self._state, reward=self.field.simpleComplexity)
+      reward = self.field.simpleComplexity-self.lastReward
+      self.lastReward = self.field.simpleComplexity
+      return ts.transition(self._state, reward=reward, discount=1)

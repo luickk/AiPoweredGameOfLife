@@ -24,10 +24,10 @@ def main():
 def train_eval(
     golMatchFieldDims=(20, 20),
     golMatchFieldNiter=100,
-    num_iterations=50,
-    actor_learning_rate=1e-4,
-    critic_learning_rate=1e-3,
-    initial_collect_steps=1000,
+    num_iterations=1000,
+    actor_learning_rate=0.001,
+    critic_learning_rate=0.001,
+    initial_collect_steps=100,
     replay_buffer_capacity=100000,
     collect_steps_per_iteration=1,
     batch_size=4,
@@ -92,17 +92,20 @@ def train_eval(
         num_steps=2).prefetch(3)
 
     iterator = iter(dataset)
-
+    loss = []
+    reward = []
     for i in range(num_iterations):
         time_step, policy_state = collect_driver.run(time_step=time_step, policy_state=policy_state)
         experience, _ = next(iterator)
         train_loss = tf_agent.train(experience)
-        tf.print(str(i)+"-Loss: ", train_loss.loss)
-        tf.print(str(i)+"-Reward: ",  time_step.reward)
+        print(str(i)+"-Loss: " + str(train_loss.loss.numpy()))
+        print(str(i)+"-Reward: "+ str(time_step.reward.numpy()[0]))
+        loss.append(train_loss.loss.numpy())
+        reward.append(time_step.reward.numpy()[0])
         if i == num_iterations-1:
             est = np.around(collect_policy.action(time_step)[0].numpy()).astype(np.uint8)
             print(est)
-            np.save("latestRes.npy", np.array((golMatchFieldDims, golMatchFieldNiter, est), dtype=np.object))
+            np.save("latestRes.npy", np.array((loss, reward, golMatchFieldDims, golMatchFieldNiter, est), dtype=np.object))
     tf_env.close()
 
 def binaryActFunc():
