@@ -24,7 +24,7 @@ def main():
 def train_eval(
     golMatchFieldDims=(20, 20),
     golMatchFieldNiter=100,
-    num_iterations=1000,
+    num_iterations=100,
     actor_learning_rate=0.001,
     critic_learning_rate=0.001,
     initial_collect_steps=100,
@@ -105,11 +105,8 @@ def train_eval(
         if i == num_iterations-1:
             est = np.around(collect_policy.action(time_step)[0].numpy()).astype(np.uint8)
             print(est)
-            np.save("latestRes.npy", np.array((loss, reward, golMatchFieldDims, golMatchFieldNiter, est), dtype=np.object))
+            np.save("latestRes.npy", np.array((loss, reward, golMatchFieldDims, golMatchFieldNiter, est, (num_iterations, actor_learning_rate, critic_learning_rate, batch_size, fc_layer_params, observation_fc_layer_params)), dtype=np.object))
     tf_env.close()
-
-def binaryActFunc():
-    return lambda x: tf.round(tf.nn.sigmoid(x))
 
 class ActorNetworkCustom(network.Network):
   """Creates a custom actor network."""
