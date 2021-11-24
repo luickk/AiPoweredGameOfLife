@@ -42,17 +42,20 @@ class GolEnv(py_environment.PyEnvironment):
       return self.reset()
     self.field.simpleComplexity = 0
 
-    # TODO: PERFOMANCE OPTIMISATIONS
+    rewardArr = np.ones(shape=(self.nIteration))
 
+    # TODO: PERFOMANCE OPTIMISATIONS
     # implicitly casting between uint8 and float32
     self.field.fieldMatrix = np.around(action).astype(np.uint8)
     for i in range(self.nIteration):
+        self.field.simpleComplexity = 0
         self.field.applyIterationPy()
+        rewardArr[i] = self.field.simpleComplexity
+
     self._state = self.field.fieldMatrix.astype(np.float32)
 
     if self._episode_ended:
       return ts.termination(self._state, self.field.simpleComplexity)
     else:
-      reward = self.field.simpleComplexity-self.lastReward
-      self.lastReward = self.field.simpleComplexity
+      reward = np.average(rewardArr)
       return ts.transition(self._state, reward=reward, discount=1)

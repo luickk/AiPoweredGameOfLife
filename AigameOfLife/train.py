@@ -23,8 +23,8 @@ def main():
 
 def train_eval(
     golMatchFieldDims=(20, 20),
-    golMatchFieldNiter=100,
-    num_iterations=100,
+    golMatchFieldNiter=20,
+    num_iterations=2000,
     actor_learning_rate=0.001,
     critic_learning_rate=0.001,
     initial_collect_steps=100,
@@ -98,7 +98,7 @@ def train_eval(
         time_step, policy_state = collect_driver.run(time_step=time_step, policy_state=policy_state)
         experience, _ = next(iterator)
         train_loss = tf_agent.train(experience)
-        print(str(i)+"-Loss: " + str(train_loss.loss.numpy()))
+        # print(str(i)+"-Loss: " + str(train_loss.loss.numpy()))
         print(str(i)+"-Reward: "+ str(time_step.reward.numpy()[0]))
         loss.append(train_loss.loss.numpy())
         reward.append(time_step.reward.numpy()[0])

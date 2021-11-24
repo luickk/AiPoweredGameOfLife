@@ -10,6 +10,8 @@ from Cython import gameOfLife
 
 if __name__ == '__main__':
     x = np.load("latestRes.npy", allow_pickle=True)
+    graphicSaved = True
+
     loss = x[0]
     reward = x[1]
     golMatchFieldDims = x[2]
@@ -27,6 +29,7 @@ if __name__ == '__main__':
     field = gameOfLife.matchFieldPy(golMatchFieldDims[0], golMatchFieldDims[1])
     field.zeroMatchFieldPy()
     field.fieldMatrix = matchFieldMatrix[0]
+
 
     print("============================================")
     print("Starting Match Field: ")
@@ -51,16 +54,19 @@ if __name__ == '__main__':
     plt.annotate('critic lr:' + str(critic_learning_rate), (0,0), (0, -90), xycoords='axes fraction', textcoords='offset points', va='top')
 
     def update(i):
-        field.applyIterationPy()
-        matrice.set_array(field.fieldMatrix)
-        framesAnnotation.set_text(str(i))
-        if i == iterations:
-            ani.event_source.stop()
-            sleep(1)
-            ani.save('../resultsAnitmations/'+str(random.randint(0, 100))+'.gif', writer='imagemagick')
-            print("gif saved")
+        global graphicSaved
+        if i <= iterations:
+            field.applyIterationPy()
+            matrice.set_array(field.fieldMatrix)
+            framesAnnotation.set_text(str(i))
+            if i == iterations and not graphicSaved:
+                graphicSaved = True
+                ani.event_source.stop()
+                sleep(1)
+                ani.save('../resultsAnitmations/'+str(random.randint(0, 100))+'.gif', writer='imagemagick')
+                print("gif saved")
 
-    ani = animation.FuncAnimation(fig, update, repeat=True)
+    ani = animation.FuncAnimation(fig, update)
     plt.show()
 
     del field
