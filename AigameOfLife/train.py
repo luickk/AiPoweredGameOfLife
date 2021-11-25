@@ -23,20 +23,21 @@ def main():
 
 def train_eval(
     golMatchFieldDims=(20, 20),
-    golMatchFieldNiter=20,
-    num_iterations=2000,
+    golMatchFieldNiter=5,
+    earlyEvolutionPenalty=1000,
+    num_iterations=500,
     actor_learning_rate=0.001,
     critic_learning_rate=0.001,
     initial_collect_steps=100,
     replay_buffer_capacity=100000,
     collect_steps_per_iteration=1,
-    batch_size=4,
+    batch_size=12,
     fc_layer_params=(400,400),
     observation_fc_layer_params=(400, 400)):
 
     global_step = tf.compat.v1.train.get_or_create_global_step()
 
-    tf_env = tf_py_environment.TFPyEnvironment(GolEnv(golMatchFieldDims[0], golMatchFieldDims[1], golMatchFieldNiter))
+    tf_env = tf_py_environment.TFPyEnvironment(GolEnv(golMatchFieldDims[0], golMatchFieldDims[1], golMatchFieldNiter, earlyEvolutionPenalty))
 
     actor_net = ActorNetworkCustom(tf_env.observation_spec(), tf_env.action_spec(), activation_fn=tf.nn.relu, fc_layer_params=fc_layer_params, name='ActorNetwork')
 

@@ -35,6 +35,8 @@ The reinforcement learning is realized with a [tf-agent ddpg network](https://ww
 >
 > -- <cite>[Julien Vitay DPG](https://julien-vitay.net/deeprl/DPG.html)</cite>
 
+The model is pretty much implemented as given by the documentation except for the actor net output layer, since the gol has binary action space, a somewhat binary last layer activation function was added to the actor net. The activation function chosen was `tanh` since it comes close to a somewhat binary output without dispruting the whole model (which a binary output would since 1 and 0 either don't or zero the output which the standard ddpg model is not built for). Instead the model output is rounded to 1/0 before being used as input for the gol.
+
 ## libGameOfLife Cython wrapper
 
 Path: `AiGameOfLife/Cython` <br>
@@ -47,7 +49,14 @@ Please don't use any python functions in the training loop (not even print) sinc
 ### First test evaluations of the project
 
 The first few runs show several problem areas which need to be investigated.
-- GAN(DDPG) reward calculation over n evolutions per gol game
+
+- model focuses only on first gol evolution 1 (reward calculation over n evolutions per gol game)
   - The actor net action is the initial game of life matrix on which n gol evolution steps are performed. Thus the reward is calculated by adding up the „fitness parameters “ (the factors by which the gol game is rated. For example the simpleComplexity factor which represents the Kolmogorov complexity) per evolution every single round of gol.
   - A symptom of summing up the „fitness parameters“ for n evolutions of every gol is that the network focuses on the first(or which ever is mor efficient) evolution. The result is that the reward plateaus at a certain niveau because the network chooses the shortest path to the highest achievable reward and  does not compromise for the longevity of the factor of interest.
   - A possible solution to this problem is to calculate the “difference sum average” of the values for all evolutions. This would account for a possible focus of the network on one evolution.
+- model focuses only on first gol evolution 2
+  - After implementing the "difference sum average" the problem that only the first evolution of the gol was maximized on, persisted.
+  - As an solution I introduced a balance value(called `earlyEvolutionPenalty`) which increases the "difference sum average" linearly (indirectly proportional to the evolution count). `sum += 1000/i`
+  - the result is quite remarkable, *for the first time* the model is able to generate a persistent noise as to be expected when using the "simpleComplexity" (or Kolmogorov complexity) as fitness parameter.
+  - Noise metrics: <img src="media/noise-metrics.png" alt="drawing"/> <br><br>
+  - Noise gif: <img src="media/noise.gif" alt="drawing"/>
