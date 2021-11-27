@@ -23,26 +23,49 @@ This parameter seems to be really promising since it considers important pattern
 ## Lib Game Of Life
 
 Path: `libGameOfLife/` <br>
-It is a static C lib which contains the game of life which then can easily be used as training environment for the reinforcement learning.
-The parameter calculation is also implemented here.
+
+A static C lib which contains the game of life which then can easily be used as training environment for the reinforcement learning. I implemented in C in order to achieve maximum performance and decrease the nnetworks training time.
+The fitness parameter calculations are also implemented here.
 
 ## Reinforcement learning
 
 Path: `AiGameOfLife/` <br>
 
-The reinforcement learning is realized with a [tf-agent ddpg network](https://www.tensorflow.org/agents/api_docs/python/tf_agents/agents/ddpg/actor_network/ActorNetwork). The DDPG with its GAN like Q-Function is used because its ability to explore huge continous actionsspaces. In this case the init state of a game of life.
+For the reinforcement learning I used a [tf-agent ddpg network](https://www.tensorflow.org/agents/api_docs/python/tf_agents/agents/ddpg/actor_network/ActorNetwork). The DDPG with its GAN like Q-Function is used because its ability to explore huge continous actionsspaces. In this case the init state of a game of life.
 > The main advantage is that stochastic policies ensure exploration of the state-action space [..]
 >
 > -- <cite>[Julien Vitay DPG](https://julien-vitay.net/deeprl/DPG.html)</cite>
 
-The model is pretty much implemented as given by the documentation except for the actor net output layer, since the gol has binary action space, a somewhat binary last layer activation function was added to the actor net. The activation function chosen was `tanh` since it comes close to a somewhat binary output without dispruting the whole model (which a binary output would since 1 and 0 either don't or zero the output which the standard ddpg model is not built for). Instead the model output is rounded to 1/0 before being used as input for the gol.
+The model is pretty much implemented as given by the documentation except for the actor net output layer, since the gol has a binary action space, I added a somewhat binary last layer activation function to the actor net. I chose the `tanh`  activation function since it comes close to a somewhat binary output without disrupting the whole model (which a binary output would since 1 and 0 either don't or zero the output which the standard ddpg model is not built for). Instead the model output is rounded to 1/0 before being used as input for the gol.
 
 ## libGameOfLife Cython wrapper
 
 Path: `AiGameOfLife/Cython` <br>
 
 In order to train fast, the game of life is not implemented in python but instead in C. The cython wrapper is very easy to use and leverages the c performance increase.
-Please don't use any python functions in the training loop (not even print) since this will dramatically alter the game of life speed.
+Please don't use any python functions in the training loop (not even print) since this will dramatically alter the gol game duration and with that the networks training time.
+
+## Network (Parameter) Experiences and Setups
+
+### Fitness Parameter: simple Complexity
+
+When optimizing the intial gol matrix to be as complex as possible, the aimed outcome is noise since it technically is the most complex. As mentioned in the "Network Improvement History" the ddpg model has the tendency to optimize the first gol evoltution. This can be prevented by adjusting the `earlyEvolutionPenalty`. I've had to experiment quite a bit in order to find a value that works but `2000` seems to be it. When changing the gol evolution count this value has to change proportionally! The same applies on the gol match field dimensions. All the other paramters have no extraordinary effect.
+
+Test setup paramters:
+>  golMatchFieldDims=(20, 20) <br>
+>  golMatchFieldNiter=10 <br>
+>  earlyEvolutionPenalty=2000 <br>
+>  num_iterations=1000 <br>
+>  actor_learning_rate=0.001 <br>
+>  critic_learning_rate=0.001 <br>
+>  initial_collect_steps=100 <br>
+>  replay_buffer_capacity=100000 <br>
+>  collect_steps_per_iteration=1 <br>
+>  batch_size=12 <br>
+>  fc_layer_params=(400,400) <br>
+>  observation_fc_layer_params=(400, 400))
+
+The result can be seen [here](media/noise.gif).
 
 ## Network Improvement History
 
@@ -58,5 +81,5 @@ The first few runs show several problem areas which need to be investigated.
   - After implementing the "difference sum average" the problem that only the first evolution of the gol was maximized on, persisted.
   - As an solution I introduced a balance value(called `earlyEvolutionPenalty`) which increases the "difference sum average" linearly (indirectly proportional to the evolution count). `sum += 1000/i`
   - the result is quite remarkable, *for the first time* the model is able to generate a persistent noise as to be expected when using the "simpleComplexity" (or Kolmogorov complexity) as fitness parameter.
-  - Noise metrics: <img src="media/noise-metrics.png" alt="drawing"/> <br><br>
-  - Noise gif: <img src="media/noise.gif" alt="drawing"/>
+  - Noise metrics <img src="media/noise-metrics.png" alt="drawing"/> <br><br>
+  - Noise gif <img src="media/noise.gif" alt="drawing"/>

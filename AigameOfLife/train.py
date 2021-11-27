@@ -23,9 +23,9 @@ def main():
 
 def train_eval(
     golMatchFieldDims=(20, 20),
-    golMatchFieldNiter=5,
-    earlyEvolutionPenalty=1000,
-    num_iterations=500,
+    golMatchFieldNiter=10,
+    earlyEvolutionPenalty=2000,
+    num_iterations=1000,
     actor_learning_rate=0.001,
     critic_learning_rate=0.001,
     initial_collect_steps=100,
