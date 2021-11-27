@@ -14,7 +14,7 @@ from tf_agents.trajectories import time_step as ts
 
 class GolEnv(py_environment.PyEnvironment):
 
-    def __init__(self, xdim, ydim, nIterations, earlyEvolutionPenalty):
+    def __init__(self, xdim, ydim, nIterations, earlyEvolutionPenalty, fitnessParameter="simpleComplexity"):
         self.field = gameOfLife.matchFieldPy(xdim, ydim)
         self.field.zeroMatchFieldPy()
         self.nIteration = nIterations
@@ -24,6 +24,7 @@ class GolEnv(py_environment.PyEnvironment):
         self._observation_spec = array_spec.BoundedArraySpec(shape=(xdim,ydim), dtype=np.float32, minimum=0, maximum=1, name='observation')
 
         self._state = self.field.fieldMatrix
+        self.fitnessParameter = fitnessParameter
         self._episode_ended = False
         self.lastReward = 0
 
@@ -51,7 +52,8 @@ class GolEnv(py_environment.PyEnvironment):
         for i in range(self.nIteration):
             self.field.simpleComplexity = 0
             self.field.applyIterationPy()
-            rewardArr[i] = self.field.simpleComplexity
+            if self.fitnessParameter == "simpleComplexity":
+                rewardArr[i] = self.field.simpleComplexity
 
         self._state = self.field.fieldMatrix.astype(np.float32)
 

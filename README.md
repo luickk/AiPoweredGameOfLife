@@ -27,6 +27,41 @@ Path: `libGameOfLife/` <br>
 A static C lib which contains the game of life which then can easily be used as training environment for the reinforcement learning. I implemented in C in order to achieve maximum performance and decrease the nnetworks training time.
 The fitness parameter calculations are also implemented here.
 
+## Installation & Test
+
+### Requirements
+
+- tensorflow
+- tf_agents
+- matplotlib
+- cython
+
+### Test
+
+I built the C library on a mac so depending on your platform you may need to rebuild the gol static lib.
+```
+cd libGameOfLife
+bash build.sh
+```
+
+The same applies on the Cython project to generate the python module.
+```
+cd AiGameOfLife/Cython
+bash build.sh
+```
+(the build.sh only work on unix systems, you'll have to manually rebuild the lib on other platforms)
+
+After that the net can be trained, for that run
+```
+cd AiGameOfLife/
+python3 train.py
+```
+To test the generated game of life matrix run
+```
+python3 testLatestRes.py  
+```
+The matrix from the last training process is saved in the `latestRes.npy` file and is read by `testLatestRes.py`
+
 ## Reinforcement learning
 
 Path: `AiGameOfLife/` <br>
