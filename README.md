@@ -4,9 +4,9 @@ The goal of the project is create a neural net which trains on finding most "cre
 The idea is to iterate over different fitness parameters to find the most interesting form of autonomous life.
 
 Intersting parameters:
-- Kolmogorov complexity <br>
-The Kolmogorov complexity parameter represents the amounts of operations (rules) applied per game.
-It represents the [Kolmogorov complexity](https://en.wikipedia.org/wiki/Kolmogorov_complexity) for a certain match field.
+- Simple complexity <br>
+The simpleComplexity parameter represents the amounts of operations (rules) applied per game.
+It represents the complexity for a certain match field.
 Maximizing for this parameter probably equals in an absolutely chaotic system since only increasing the complexity is not really helpfull to find stable life.
 
 - Entropy // todo <br>
@@ -18,7 +18,7 @@ As mentioned in the paper its advantage is that this parameter is great to find 
 > "Algorithmic specified complexity (ASC) measures the degree to which an object is meaningful [...]"
 > -Abstract from the [Paper](https://robertmarks.org/REPRINTS/2015_AlgorithmicSpecifiedComplexityInTheGameOfLife.pdf)
 
-This parameter seems to be really promising since it considers important patterns & complexity and thus seems to be the better version of the Kolmogorov parameter.
+This parameter seems to be really promising since it considers important patterns & complexity and thus seems to be the better version of the simpleComplexity parameter.
 
 ## Lib Game Of Life
 
@@ -109,12 +109,12 @@ The result can be seen [here](media/noise.gif).
 The first few runs show several problem areas which need to be investigated.
 
 - model focuses only on first gol evolution 1 (reward calculation over n evolutions per gol game)
-  - The actor net action is the initial game of life matrix on which n gol evolution steps are performed. Thus the reward is calculated by adding up the „fitness parameters “ (the factors by which the gol game is rated. For example the simpleComplexity factor which represents the Kolmogorov complexity) per evolution every single round of gol.
+  - The actor net action is the initial game of life matrix on which n gol evolution steps are performed. Thus the reward is calculated by adding up the „fitness parameters “ (the factors by which the gol game is rated. For example the simpleComplexity factor) per evolution every single round of gol.
   - A symptom of summing up the „fitness parameters“ for n evolutions of every gol is that the network focuses on the first(or which ever is mor efficient) evolution. The result is that the reward plateaus at a certain niveau because the network chooses the shortest path to the highest achievable reward and  does not compromise for the longevity of the factor of interest.
   - A possible solution to this problem is to calculate the “difference sum average” of the values for all evolutions. This would account for a possible focus of the network on one evolution.
 - model focuses only on first gol evolution 2
   - After implementing the "difference sum average" the problem that only the first evolution of the gol was maximized on, persisted.
   - As an solution I introduced a balance value(called `earlyEvolutionPenalty`) which increases the "difference sum average" linearly (indirectly proportional to the evolution count). `sum += 1000/i`
-  - the result is quite remarkable, *for the first time* the model is able to generate a persistent noise as to be expected when using the "simpleComplexity" (or Kolmogorov complexity) as fitness parameter.
+  - the result is quite remarkable, *for the first time* the model is able to generate a persistent noise as to be expected when using the "simpleComplexity" as fitness parameter.
   - Noise metrics <img src="media/noise-metrics.png" alt="drawing"/> <br><br>
   - Noise gif <img src="media/noise.gif" alt="drawing"/>

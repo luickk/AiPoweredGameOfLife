@@ -4,6 +4,7 @@ struct matchField{
   int xSize, ySize;
 
   int simpleComplexity;
+  int entropy;
   uint8_t *fieldMatrixNeighbourCount;
 
   // using int for the sake of simplicity TODO: change to bitmask (don't know whether it's even worth the extra computing time)
@@ -14,6 +15,11 @@ struct matchField{
 void getNneighbours(struct matchField *field, int x, int y, int *nNeighbours);
 
 int fieldBoundaryCheck(struct matchField *field, int x, int y);
+
+double calcLogWithBase(int *base, int x);
+
+int countCellsAlive(struct matchField *field);
+
 
 // lib
 void printMatchField(struct matchField *field);
@@ -29,3 +35,6 @@ void initMatchField(struct matchField *field);
 void freeMatchField(struct matchField *field);
 
 void applyIteration(struct matchField *field);
+
+// !needs to be called per iteration!
+void calcEntropy(struct matchField *field, int *iteration);

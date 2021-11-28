@@ -19,10 +19,11 @@ int main() {
   printf("pre iteration: \n");
   printMatchField(game);
 
-  for(int i = 0; i <= nIteration; i++) {
+  for(int i = 1; i <= nIteration; i++) {
     applyIteration(game);
+    calcEntropy(game, &i);
     printf("iteration %d: \n", i);
-    printMatchField(game);
+    printf("entropy: %d \n", game->entropy);
   }
   printf("Simple complexity: %d \n", game->simpleComplexity);
   freeMatchField(game);

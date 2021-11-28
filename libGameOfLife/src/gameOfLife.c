@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "gameOfLife.h"
 
@@ -40,6 +41,28 @@ void freeMatchField(struct matchField *field) {
 void resetGame(struct matchField *field) {
   zeroMatchField(field);
   field->simpleComplexity = 0;
+  field->entropy = 0;
+}
+
+double calcLogWithBase(int *base, int x) {
+  return log(x)/log(*base);
+}
+
+int countCellsAlive(struct matchField *field) {
+  int cellsAlive=0;
+  for (int ix = 0; ix < field->xSize; ix++) {
+    for (int iy = 0; iy < field->ySize; iy++) {
+      if (field->fieldMatrix[ix+field->ySize*iy]) {
+        cellsAlive++;
+      }
+    }
+  }
+  return cellsAlive;
+}
+
+// !needs to be called per iteration!
+void calcEntropy(struct matchField *field, int *iteration) {
+  field->entropy = (1/(field->xSize*field->ySize)) * calcLogWithBase(iteration, (field->xSize*field->ySize)/countCellsAlive(field));
 }
 
 int fieldBoundaryCheck(struct matchField *field, int x, int y) {
