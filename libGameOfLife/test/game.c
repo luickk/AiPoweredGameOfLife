@@ -16,16 +16,19 @@ int main() {
   setMatchFieldXY(game, 6, 5, 1);
   setMatchFieldXY(game, 7, 5, 1);
 
-  printf("pre iteration: \n");
+  printf("init matrix: \n");
   printMatchField(game);
+  printf("------------ \n");
 
   for(int i = 1; i <= nIteration; i++) {
     applyIteration(game);
-    calcEntropy(game, &i);
+    calcEntropy(game, i);
+
+    printMatchField(game);
     printf("iteration %d: \n", i);
-    printf("entropy: %d \n", game->entropy);
+    printf("entropy: %f \n", game->entropy);
+    printf("simple complexity: %d \n", game->simpleComplexity);
   }
-  printf("Simple complexity: %d \n", game->simpleComplexity);
   freeMatchField(game);
 
   printf("end game \n");
