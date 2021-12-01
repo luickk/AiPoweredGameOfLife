@@ -10,7 +10,7 @@ from Cython import gameOfLife
 
 if __name__ == '__main__':
     x = np.load("latestRes.npy", allow_pickle=True)
-    graphicSaved = False
+    graphicSaved = True
 
     loss = x[0]
     reward = x[1]

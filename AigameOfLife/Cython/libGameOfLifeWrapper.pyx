@@ -8,6 +8,7 @@ cdef extern from "gameOfLife.h":
   struct matchField:
     int xSize, ySize
     int simpleComplexity
+    double entropy
     np.uint8_t *fieldMatrixNeighbourCount
     np.uint8_t *fieldMatrix
   void initMatchField(matchField *field)
@@ -18,6 +19,7 @@ cdef extern from "gameOfLife.h":
   void initMatchField(matchField *field)
   void freeMatchField(matchField *field)
   void applyIteration(matchField *field)
+  void calcEntropy(matchField *field, int iter)
 
 cdef class matchFieldPy:
   cdef matchField mf
@@ -56,6 +58,12 @@ cdef class matchFieldPy:
     def __set__(self, simpleComplexity):
       self.mf.simpleComplexity = simpleComplexity
 
+  property entropy:
+    def __get__(self):
+      return self.mf.entropy
+    def __set__(self, entropy):
+      self.mf.entropy = entropy
+
   def __exit__(self):
     freeMatchField(&self.mf)
 
@@ -64,6 +72,9 @@ cdef class matchFieldPy:
 
   def printMatchFieldPy(self):
     printMatchField(&self.mf)
+
+  def calcEntropyPy(self, iter):
+    calcEntropy(&self.mf, iter)
 
   def resetGamePy(self):
     resetGame(&self.mf)

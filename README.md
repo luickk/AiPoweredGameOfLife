@@ -9,7 +9,7 @@ The simpleComplexity parameter represents the amounts of operations (rules) appl
 It represents the complexity for a certain match field.
 Maximizing for this parameter probably equals in an absolutely chaotic system since only increasing the complexity is not really helpfull to find stable life.
 
-- Entropy // todo <br>
+- Entropy <br>
 The entropy parameter returns the entropy of a match field.
 The calculations for the entropy are taken from [this](https://www-users.cs.york.ac.uk/kazakov/papers/aamas-paper.pdf) paper and can be found at chapter 4 "Entropy Based Fitness of Cellular Automata".
 As mentioned in the paper its advantage is that this parameter is great to find "stable" life forms since reduced entropy equals a higher amount of order.

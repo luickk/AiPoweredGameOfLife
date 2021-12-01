@@ -23,8 +23,8 @@ def main():
 
 def train_eval(
     golMatchFieldDims=(20, 20),
-    golMatchFieldNiter=10,
-    earlyEvolutionPenalty=2000,
+    golMatchFieldNiter=20,
+    earlyEvolutionPenalty=4000,
     num_iterations=1000,
     actor_learning_rate=0.001,
     critic_learning_rate=0.001,
@@ -33,11 +33,13 @@ def train_eval(
     collect_steps_per_iteration=1,
     batch_size=12,
     fc_layer_params=(400,400),
-    observation_fc_layer_params=(400, 400)):
+    observation_fc_layer_params=(400, 400),
+    # fitnessParameters available: entropy, simpleComplexity
+    fitnessParameter="simpleComplexity"):
 
     global_step = tf.compat.v1.train.get_or_create_global_step()
 
-    tf_env = tf_py_environment.TFPyEnvironment(GolEnv(golMatchFieldDims[0], golMatchFieldDims[1], golMatchFieldNiter, earlyEvolutionPenalty))
+    tf_env = tf_py_environment.TFPyEnvironment(GolEnv(golMatchFieldDims[0], golMatchFieldDims[1], golMatchFieldNiter, earlyEvolutionPenalty, fitnessParameter=fitnessParameter))
 
     actor_net = ActorNetworkCustom(tf_env.observation_spec(), tf_env.action_spec(), activation_fn=tf.nn.relu, fc_layer_params=fc_layer_params, name='ActorNetwork')
 

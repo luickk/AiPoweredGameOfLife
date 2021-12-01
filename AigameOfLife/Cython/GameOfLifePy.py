@@ -16,10 +16,11 @@ if __name__ == '__main__':
     field.setMatchFieldXYpy(6, 5, 1);
     field.setMatchFieldXYpy(7, 5, 1);
 
-    for i in range(1):
+    for i in range(10):
         field.applyIterationPy()
-        print(i)
+        field.calcEntropyPy(i)
+        print("simple Complexity: " + str(field.simpleComplexity))
+        print("entropy: %.6f"%field.entropy)
         print(field.fieldMatrix)
-        field.printMatchFieldPy()
-    print(field.simpleComplexity)
+
     del field

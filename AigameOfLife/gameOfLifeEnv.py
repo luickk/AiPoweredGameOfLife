@@ -52,8 +52,14 @@ class GolEnv(py_environment.PyEnvironment):
         for i in range(self.nIteration):
             self.field.simpleComplexity = 0
             self.field.applyIterationPy()
+            self.field.calcEntropyPy(i)
             if self.fitnessParameter == "simpleComplexity":
                 rewardArr[i] = self.field.simpleComplexity
+            elif self.fitnessParameter == "entropy":
+                if not np.isinf(self.field.entropy):
+                    rewardArr[i] = self.field.entropy
+                elif np.isinf(self.field.entropy):
+                    rewardArr[i] = 0
 
         self._state = self.field.fieldMatrix.astype(np.float32)
 
