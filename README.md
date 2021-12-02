@@ -80,7 +80,7 @@ Path: `AiGameOfLife/Cython` <br>
 In order to train fast, the game of life is not implemented in python but instead in C. The cython wrapper is very easy to use and leverages the c performance increase.
 Please don't use any python functions in the training loop (not even print) since this will dramatically alter the gol game duration and with that the networks training time.
 
-## Network (Parameter) Experiences and Setups
+## Network (Parameter) Experiences and Setups (with Test Results)
 
 ### Fitness Parameter: simple Complexity
 
@@ -98,9 +98,34 @@ Test setup paramters:
 >  collect_steps_per_iteration=1 <br>
 >  batch_size=12 <br>
 >  fc_layer_params=(400,400) <br>
->  observation_fc_layer_params=(400, 400))
+>  observation_fc_layer_params=(400, 400)),
+> #\ fitnessParameters available: entropy, simpleComplexity
+> fitnessParameter="simpleComplexity"
 
-The result can be seen [here](media/noise.gif).
+Results can be viewed [here](media/noise.gif).
+
+### Fitness Parameter: entropy
+
+As already mentioned in the introduction, the goal of the entropy fitness parameter is to find more "stable" patterns. The entropy defines the level of chaos in a system. As such, the more predictable the next state of the automaton is, the lower the entropy of the pattern. (Dimitar Kazakov, Matthew Sweet. "Evolving the Game of Life").
+The earlyEvolutionPenalty is set to 1(and changing it has no great effect) since the entropy values are very small therefor it's worth while playing around with the learning rate (decreasing it) and and the number of iterations. Training on the decrease of entropy is way more computing intensive and I'm not done with "simulating" and testing.
+
+Test setup paramters:
+> golMatchFieldDims=(20, 20), <br>
+> golMatchFieldNiter=10, <br>
+> earlyEvolutionPenalty=1, <br>
+> num_iterations=5000, <br>
+> actor_learning_rate=0.001, <br>
+> critic_learning_rate=0.001, <br>
+> initial_collect_steps=100, <br>
+> replay_buffer_capacity=100000, <br>
+> collect_steps_per_iteration=1, <br>
+> batch_size=12, <br>
+> fc_layer_params=(400,400), <br>
+> observation_fc_layer_params=(400, 400), <br>
+> #\ fitnessParameters available: entropy, simpleComplexity <br>
+> fitnessParameter="entropy"
+
+Results can be viewed [here](media/entropy-1.gif) and (media/entropy-2.gif).
 
 ## Network Improvement History
 
@@ -118,3 +143,10 @@ The first few runs show several problem areas which need to be investigated.
   - the result is quite remarkable, *for the first time* the model is able to generate a persistent noise as to be expected when using the "simpleComplexity" as fitness parameter.
   - Noise metrics <img src="media/noise-metrics.png" alt="drawing"/> <br><br>
   - Noise gif <img src="media/noise.gif" alt="drawing"/>
+- entropy reward implementation
+  - The entropy parameter is introduced. The math formula is taken from [this](https://www-users.cs.york.ac.uk/kazakov/papers/aamas-paper.pdf) paper.
+  - the reward for the entropy is calculated exactly the same as with the simple complexity
+  - only difference is that the sign for the reward is reversed so that the model decreases it(whilst it actually increases it)
+  - training seems to be way more computing intensive and parameter sensitive and there is definitely room for exploration
+  - Training metrics are not really comprehensive yet thow so there is room to optimize
+  - entropy gif <img src="media/entropy-1.gif" alt="drawing"/>

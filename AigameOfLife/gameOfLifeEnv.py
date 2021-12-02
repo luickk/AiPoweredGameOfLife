@@ -56,17 +56,19 @@ class GolEnv(py_environment.PyEnvironment):
             if self.fitnessParameter == "simpleComplexity":
                 rewardArr[i] = self.field.simpleComplexity
             elif self.fitnessParameter == "entropy":
-                if not np.isinf(self.field.entropy):
+                if not np.isinf(self.field.entropy) and not np.isnan(self.field.entropy):
                     rewardArr[i] = self.field.entropy
-                elif np.isinf(self.field.entropy):
+                else:
                     rewardArr[i] = 0
-
         self._state = self.field.fieldMatrix.astype(np.float32)
 
         if self._episode_ended:
             return ts.termination(self._state, self.field.simpleComplexity)
         else:
             reward = np.average(rewardArr) - self.calcDifferenceSumAvg(rewardArr)
+            # reversing reward sign so ddpg model decreases entropy
+            if self.fitnessParameter == "entropy":
+                reward = -reward
             return ts.transition(self._state, reward=reward, discount=1)
 
     def calcDifferenceSumAvg(self, arr):
