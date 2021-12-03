@@ -82,6 +82,10 @@ Please don't use any python functions in the training loop (not even print) sinc
 
 ## Network (Parameter) Experiences and Setups (with Test Results)
 
+### Results
+
+Examples that were produced by the network can be viewed at `resultsAnitmations/chaos` or `resultsAnitmations/entropy` for the respective fitness function.
+
 ### Fitness Parameter: simple Complexity
 
 When optimizing the intial gol matrix to be as complex as possible, the aimed outcome is noise since it technically is the most complex. As mentioned in the "Network Improvement History" the ddpg model has the tendency to optimize the first gol evoltution. This can be prevented by adjusting the `earlyEvolutionPenalty`. I've had to experiment quite a bit in order to find a value that works but `2000` seems to be it. When changing the gol evolution count this value has to change proportionally! The same applies on the gol match field dimensions. All the other paramters have no extraordinary effect.

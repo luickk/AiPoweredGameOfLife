@@ -23,11 +23,11 @@ def main():
 
 def train_eval(
     golMatchFieldDims=(20, 20),
-    golMatchFieldNiter=10,
-    earlyEvolutionPenalty=1,
-    num_iterations=5000,
-    actor_learning_rate=0.001,
-    critic_learning_rate=0.001,
+    golMatchFieldNiter=30,
+    earlyEvolutionPenalty=4,
+    num_iterations=10000,
+    actor_learning_rate=0.0000001,
+    critic_learning_rate=0.0000001,
     initial_collect_steps=100,
     replay_buffer_capacity=100000,
     collect_steps_per_iteration=1,
