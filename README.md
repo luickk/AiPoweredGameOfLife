@@ -14,17 +14,21 @@ The entropy parameter returns the entropy of a match field.
 The calculations for the entropy are taken from [this](https://www-users.cs.york.ac.uk/kazakov/papers/aamas-paper.pdf) paper and can be found at chapter 4 "Entropy Based Fitness of Cellular Automata".
 As mentioned in the paper its advantage is that this parameter is great to find "stable" life forms since reduced entropy equals a higher amount of order.
 
+- Probabilistic Complexity <br> // todo
+This paramete is from the paper [Algorithmic specified complexity (ASC)](https://robertmarks.org/REPRINTS/2015_AlgorithmicSpecifiedComplexityInTheGameOfLife.pdf) and can be found in section `C. Binary Encoding for Patterns` but is only a component of the postulated *Algorithmic specified complexity (ASC)* but has very interesting characteristics as it defines the complexity or probability of the patterns.
+
 - Algorithmic Specified Complexity in the Game of Life //todo
+This parameter seems to be really promising since it considers important patterns & complexity and thus seems to be the better version of the simpleComplexity parameter.
+I made the assumtion that the paper would propose a "implementable" formula or method of some kind but the paper bases its calculations on an encoding which is based on visual obervations. The problem with implementing such a solution is that it requires to implement the encoding (or its operators) but the encoding contains operations which are very difficult to detect automatically. As for example the operator "move right" would require an algorithm which is capable of detecting a shift in a complex pattern, this could either be acomplished by a static implementation (which would lack flexibility) or another neural net.
 > "Algorithmic specified complexity (ASC) measures the degree to which an object is meaningful [...]"
 > -Abstract from the [Paper](https://robertmarks.org/REPRINTS/2015_AlgorithmicSpecifiedComplexityInTheGameOfLife.pdf)
 
-This parameter seems to be really promising since it considers important patterns & complexity and thus seems to be the better version of the simpleComplexity parameter.
 
 ## Lib Game Of Life
 
 Path: `libGameOfLife/` <br>
 
-A static C lib which contains the game of life which then can easily be used as training environment for the reinforcement learning. I implemented in C in order to achieve maximum performance and decrease the nnetworks training time.
+A static C lib which contains the game of life which then can easily be used as training environment for the reinforcement learning. I implemented it in C in order to achieve maximum performance and decrease the nnetworks training time.
 The fitness parameter calculations are also implemented here.
 
 ## Installation & Test

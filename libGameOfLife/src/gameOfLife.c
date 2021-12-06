@@ -48,6 +48,26 @@ double calcLogWithBase(int base, double x) {
   return log(x)/log(base);
 }
 
+
+
+int nLevensteinEncoding(int n) {
+  return (log2(n+1)+log2(n))+1;
+}
+
+// by https://www.geeksforgeeks.org/binomial-coefficient-dp-9/
+int binomialCoeff(int n, int k)
+{
+    // Base Cases
+    if (k > n)
+        return 0;
+    if (k == 0 || k == n)
+        return 1;
+
+    // Recur
+    return binomialCoeff(n - 1, k - 1)
+           + binomialCoeff(n - 1, k);
+}
+
 int countCellsAlive(struct matchField *field) {
   int cellsAlive=0;
   for (int ix = 0; ix < field->xSize; ix++) {
@@ -58,6 +78,10 @@ int countCellsAlive(struct matchField *field) {
     }
   }
   return cellsAlive;
+}
+
+void calcProbabilisticComplexity(struct matchField *field) {
+  field->pComplexity = nLevensteinEncoding(field->xSize) + nLevensteinEncoding(field->ySize) + nLevensteinEncoding(countCellsAlive(field)) + log2(binomialCoeff(field->xSize*field->ySize, countCellsAlive(field)));
 }
 
 // !needs to be called per iteration!

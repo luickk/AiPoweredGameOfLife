@@ -23,11 +23,13 @@ int main() {
   for(int i = 1; i <= nIteration; i++) {
     applyIteration(game);
     calcEntropy(game, i);
+    calcProbabilisticComplexity(game);
 
     printMatchField(game);
     printf("iteration %d: \n", i);
     printf("entropy: %f \n", game->entropy);
     printf("simple complexity: %d \n", game->simpleComplexity);
+    printf("probabilistic complexity: %f \n", game->pComplexity);
   }
   freeMatchField(game);
 
