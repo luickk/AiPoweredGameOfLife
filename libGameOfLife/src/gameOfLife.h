@@ -8,6 +8,7 @@ struct matchField{
   double pComplexity;
 
   uint8_t *fieldMatrixNeighbourCount;
+  int cellsAlive;
 
   // using int for the sake of simplicity TODO: change to bitmask (don't know whether it's even worth the extra computing time)
   uint8_t *fieldMatrix;
@@ -26,6 +27,8 @@ int nLevensteinEncoding(int n);
 
 // by https://www.geeksforgeeks.org/binomial-coefficient-dp-9/
 int binomialCoeff(int n, int k);
+int min(int a, int b);
+int fastBinomialCoeff(int n, int k);
 
 // lib
 void printMatchField(struct matchField *field);

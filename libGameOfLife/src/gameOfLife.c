@@ -54,6 +54,18 @@ int nLevensteinEncoding(int n) {
   return (log2(n+1)+log2(n))+1;
 }
 
+int countCellsAlive(struct matchField *field) {
+  int cellsAlive=0;
+  for (int ix = 0; ix < field->xSize; ix++) {
+    for (int iy = 0; iy < field->ySize; iy++) {
+      if (field->fieldMatrix[ix+field->ySize*iy]) {
+        cellsAlive++;
+      }
+    }
+  }
+  return cellsAlive;
+}
+
 // by https://www.geeksforgeeks.org/binomial-coefficient-dp-9/
 int binomialCoeff(int n, int k)
 {
@@ -68,20 +80,36 @@ int binomialCoeff(int n, int k)
            + binomialCoeff(n - 1, k);
 }
 
-int countCellsAlive(struct matchField *field) {
-  int cellsAlive=0;
-  for (int ix = 0; ix < field->xSize; ix++) {
-    for (int iy = 0; iy < field->ySize; iy++) {
-      if (field->fieldMatrix[ix+field->ySize*iy]) {
-        cellsAlive++;
-      }
+// by https://www.geeksforgeeks.org/binomial-coefficient-dp-9/
+int min(int a, int b) { return (a < b) ? a : b; }
+
+// by https://www.geeksforgeeks.org/binomial-coefficient-dp-9/
+int fastBinomialCoeff(int n, int k)
+{
+    int C[n + 1][k + 1];
+    int i, j;
+
+    // Calculate value of Binomial Coefficient
+    // in bottom up manner
+    for (i = 0; i <= n; i++) {
+        for (j = 0; j <= min(i, k); j++) {
+            // Base Cases
+            if (j == 0 || j == i)
+                C[i][j] = 1;
+
+            // Calculate value using
+            // previously stored values
+            else
+                C[i][j] = C[i - 1][j - 1] + C[i - 1][j];
+        }
     }
-  }
-  return cellsAlive;
+
+    return C[n][k];
 }
 
 void calcProbabilisticComplexity(struct matchField *field) {
-  field->pComplexity = nLevensteinEncoding(field->xSize) + nLevensteinEncoding(field->ySize) + nLevensteinEncoding(countCellsAlive(field)) + log2(binomialCoeff(field->xSize*field->ySize, countCellsAlive(field)));
+  field->cellsAlive = countCellsAlive(field);
+  field->pComplexity = nLevensteinEncoding(field->xSize) + nLevensteinEncoding(field->ySize) + nLevensteinEncoding(field->cellsAlive) + log2(fastBinomialCoeff(field->xSize*field->ySize, field->cellsAlive));
 }
 
 // !needs to be called per iteration!

@@ -50,16 +50,19 @@ class GolEnv(py_environment.PyEnvironment):
         # implicitly casting between uint8 and float32
         self.field.fieldMatrix = np.around(action).astype(np.uint8)
         for i in range(self.nIteration):
-            self.field.simpleComplexity = 0
             self.field.applyIterationPy()
-            self.field.calcEntropyPy(i)
             if self.fitnessParameter == "simpleComplexity":
                 rewardArr[i] = self.field.simpleComplexity
             elif self.fitnessParameter == "entropy":
+                self.field.calcEntropyPy(i)
                 if not np.isinf(self.field.entropy) and not np.isnan(self.field.entropy):
                     rewardArr[i] = self.field.entropy
                 else:
                     rewardArr[i] = 0
+            elif self.fitnessParameter == "pComplexity":
+                self.field.calcProbabilisticComplexityPy()
+                rewardArr[i] = self.field.pComplexity
+
         self._state = self.field.fieldMatrix.astype(np.float32)
 
         if self._episode_ended:
