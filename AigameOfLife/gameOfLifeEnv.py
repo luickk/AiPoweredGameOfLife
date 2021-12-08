@@ -61,7 +61,10 @@ class GolEnv(py_environment.PyEnvironment):
                     rewardArr[i] = 0
             elif self.fitnessParameter == "pComplexity":
                 self.field.calcProbabilisticComplexityPy()
-                rewardArr[i] = self.field.pComplexity
+                if not np.isinf(self.field.pComplexity) and not np.isnan(self.field.pComplexity):
+                    rewardArr[i] = self.field.pComplexity
+                else:
+                    rewardArr[i] = 0
 
         self._state = self.field.fieldMatrix.astype(np.float32)
 
@@ -70,7 +73,7 @@ class GolEnv(py_environment.PyEnvironment):
         else:
             reward = np.average(rewardArr) - self.calcDifferenceSumAvg(rewardArr)
             # reversing reward sign so ddpg model decreases entropy
-            if self.fitnessParameter == "entropy":
+            if self.fitnessParameter == "entropy" or self.fitnessParameter == "pComplexity":
                 reward = -reward
             return ts.transition(self._state, reward=reward, discount=1)
 
