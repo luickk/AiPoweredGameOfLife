@@ -22,6 +22,10 @@ This parameter seems to be really promising since it calculates the degree to wh
 > "Algorithmic specified complexity (ASC) measures the degree to which an object is meaningful [...]"
 > -Abstract from the [Paper](https://robertmarks.org/REPRINTS/2015_AlgorithmicSpecifiedComplexityInTheGameOfLife.pdf)
 
+## Résumé
+
+After implementing most of the interesting fitness parameters(at least the ones I found) it can be said that the project is a great success.
+The most important thing that can be said about the project is that its potential has not even been explored remotely! The project has enormous potential for further research and exploration!
 
 ## Network (Parameter) Experiences and Setups (with Test Results)
 
