@@ -5,7 +5,7 @@
 #include "gameOfLife.h"
 
 void zeroMatchField(struct matchField *field) {
-  for (int i = 0; i < field->xSize * field->ySize; i++) {
+  for (int i = field->twoDsize; i--;) {
       field->fieldMatrix[i] = 0;
   }
 }
@@ -15,8 +15,8 @@ void setMatchFieldXY(struct matchField *field, int x, int y, int val) {
 }
 
 void printMatchField(struct matchField *field) {
-  for (int ix = 0; ix < field->xSize; ix++) {
-    for (int iy = 0; iy < field->ySize; iy++) {
+  for (int ix = field->xSize; ix--;) {
+    for (int iy = field->ySize; iy--;) {
       printf("%d", field->fieldMatrix[ix+field->ySize*iy]);
     }
     printf("\n");
@@ -24,9 +24,10 @@ void printMatchField(struct matchField *field) {
 }
 
 void initMatchField(struct matchField *field) {
+  field->twoDsize = field->xSize * field->ySize;
   // direct memory layout in order to be compatible with python memory protocols
-  field->fieldMatrixNeighbourCount = malloc(field->xSize * field->ySize * sizeof(uint8_t*));
-  field->fieldMatrix = malloc(field->xSize * field->ySize * sizeof(uint8_t*));
+  field->fieldMatrixNeighbourCount = malloc(field->twoDsize * sizeof(uint8_t*));
+  field->fieldMatrix = malloc(field->twoDsize * sizeof(uint8_t*));
 
   zeroMatchField(field);
 }
@@ -42,25 +43,23 @@ void resetGame(struct matchField *field) {
   zeroMatchField(field);
   field->simpleComplexity = 0;
   field->entropy = 0;
+  field->pComplexity = 0;
 }
 
 double calcLogWithBase(int base, double x) {
   return log(x)/log(base);
 }
 
-
-
 int nLevensteinEncoding(int n) {
   return (log2(n+1)+log2(n))+1;
 }
 
+// due its unsorted nature I decided not to implement a partition of quick scan count
 int countCellsAlive(struct matchField *field) {
   int cellsAlive=0;
-  for (int ix = 0; ix < field->xSize; ix++) {
-    for (int iy = 0; iy < field->ySize; iy++) {
-      if (field->fieldMatrix[ix+field->ySize*iy]) {
-        cellsAlive++;
-      }
+  for (int i = field->twoDsize; i--;) {
+    if (field->fieldMatrix[i]) {
+      cellsAlive++;
     }
   }
   return cellsAlive;
@@ -92,7 +91,7 @@ int fastBinomialCoeff(int n, int k)
     // Calculate value of Binomial Coefficient
     // in bottom up manner
     for (i = 0; i <= n; i++) {
-        for (j = 0; j <= min(i, k); j++) {
+      for (j = 0; j <= min(i, k); j++) {
             // Base Cases
             if (j == 0 || j == i)
                 C[i][j] = 1;
@@ -109,12 +108,12 @@ int fastBinomialCoeff(int n, int k)
 
 void calcProbabilisticComplexity(struct matchField *field) {
   field->cellsAlive = countCellsAlive(field);
-  field->pComplexity = nLevensteinEncoding(field->xSize) + nLevensteinEncoding(field->ySize) + nLevensteinEncoding(field->cellsAlive) + log2(fastBinomialCoeff(field->xSize*field->ySize, field->cellsAlive));
+  field->pComplexity = nLevensteinEncoding(field->xSize) + nLevensteinEncoding(field->ySize) + nLevensteinEncoding(field->cellsAlive) + log2(fastBinomialCoeff(field->twoDsize, field->cellsAlive));
 }
 
 // !needs to be called per iteration!
 void calcEntropy(struct matchField *field, int iteration) {
-  field->entropy = ((double)1/(double)(field->xSize*field->ySize)) * calcLogWithBase(iteration, (double)(field->xSize*field->ySize)/(double)countCellsAlive(field));
+  field->entropy = ((double)1/(double)(field->twoDsize)) * calcLogWithBase(iteration, (double)(field->twoDsize)/(double)countCellsAlive(field));
 }
 
 int fieldBoundaryCheck(struct matchField *field, int x, int y) {
@@ -146,18 +145,17 @@ void applyIteration(struct matchField *field) {
     }
   }
 
-  for (int ix = 0; ix < field->xSize; ix++) {
-    for (int iy = 0; iy < field->ySize; iy++) {
-      if (field->fieldMatrixNeighbourCount[ix+field->ySize*iy] == 3) {
-        field->fieldMatrix[ix+field->ySize*iy] = 1;
-        field->simpleComplexity += 1;
-      } else if (field->fieldMatrixNeighbourCount[ix+field->ySize*iy] < 2) {
-        field->fieldMatrix[ix+field->ySize*iy] = 0;
-        field->simpleComplexity += 1;
-      } else if (field->fieldMatrixNeighbourCount[ix+field->ySize*iy] > 3) {
-        field->fieldMatrix[ix+field->ySize*iy] = 0;
-        field->simpleComplexity += 1;
-      }
+  for (int i = field->twoDsize; i--;) {
+    // todo switch
+    if (field->fieldMatrixNeighbourCount[i] == 3) {
+      field->fieldMatrix[i] = 1;
+      field->simpleComplexity += 1;
+    } else if (field->fieldMatrixNeighbourCount[i] < 2) {
+      field->fieldMatrix[i] = 0;
+      field->simpleComplexity += 1;
+    } else if (field->fieldMatrixNeighbourCount[i] > 3) {
+      field->fieldMatrix[i] = 0;
+      field->simpleComplexity += 1;
     }
   }
 }

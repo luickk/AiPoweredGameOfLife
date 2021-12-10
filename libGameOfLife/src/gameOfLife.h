@@ -2,6 +2,7 @@
 
 struct matchField{
   int xSize, ySize;
+  int twoDsize;
 
   int simpleComplexity;
   double entropy;
@@ -19,16 +20,16 @@ void getNneighbours(struct matchField *field, int x, int y, int *nNeighbours);
 
 int fieldBoundaryCheck(struct matchField *field, int x, int y);
 
-double calcLogWithBase(int base, double x);
+inline double calcLogWithBase(int base, double x);
 
-int countCellsAlive(struct matchField *field);
+inline int countCellsAlive(struct matchField *field);
 
-int nLevensteinEncoding(int n);
+inline int nLevensteinEncoding(int n);
 
 // by https://www.geeksforgeeks.org/binomial-coefficient-dp-9/
-int binomialCoeff(int n, int k);
-int min(int a, int b);
-int fastBinomialCoeff(int n, int k);
+inline int binomialCoeff(int n, int k);
+inline int min(int a, int b);
+inline int fastBinomialCoeff(int n, int k);
 
 // lib
 void printMatchField(struct matchField *field);

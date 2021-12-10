@@ -110,7 +110,7 @@ Test setup paramters:
 
 Path: `libGameOfLife/` <br>
 
-A static C lib which contains the game of life which then can easily be used as training environment for the reinforcement learning. I implemented it in C in order to achieve maximum performance and decrease the nnetworks training time.
+A static C lib which contains the game of life which then can easily be used as training environment for the reinforcement learning. I implemented it in C in order to achieve maximum performance and decrease the nnetworks training time. The code is optimized though I tried to maintain readability.
 The fitness parameter calculations are also implemented here.
 
 ## Reinforcement learning
