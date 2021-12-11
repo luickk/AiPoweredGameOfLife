@@ -4,6 +4,9 @@
 
 #include "gameOfLife.h"
 
+// direct memory layout indexing
+#define D_MEM_INDEX(X, Y, Y_SIZE)  (X+Y_SIZE*Y)
+
 void zeroMatchField(struct matchField *field) {
   for (int i = field->twoDsize; i--;) {
       field->fieldMatrix[i] = 0;
@@ -11,13 +14,13 @@ void zeroMatchField(struct matchField *field) {
 }
 
 void setMatchFieldXY(struct matchField *field, int x, int y, int val) {
-  field->fieldMatrix[x+field->ySize*y] = val;
+  field->fieldMatrix[D_MEM_INDEX(x, y, field->ySize)] = val;
 }
 
 void printMatchField(struct matchField *field) {
   for (int ix = field->xSize; ix--;) {
     for (int iy = field->ySize; iy--;) {
-      printf("%d", field->fieldMatrix[ix+field->ySize*iy]);
+      printf("%d", field->fieldMatrix[D_MEM_INDEX(ix, iy, field->ySize)]);
     }
     printf("\n");
   }
@@ -50,7 +53,7 @@ double calcLogWithBase(int base, double x) {
   return log(x)/log(base);
 }
 
-int nLevensteinEncoding(int n) {
+double nLevensteinEncoding(int n) {
   return (log2(n+1)+log2(n))+1;
 }
 
@@ -123,39 +126,30 @@ int fieldBoundaryCheck(struct matchField *field, int x, int y) {
   return 0;
 }
 
-void getNneighbours(struct matchField *field, int x, int y, int *nNeighbours) {
+void getCellNeighbours(struct matchField *field, int *x, int *y, uint8_t *nNeighbours) {
   *nNeighbours = 0;
-  if (fieldBoundaryCheck(field, x, y)) {
-    *nNeighbours += field->fieldMatrix[(x-1)+field->ySize*y];
-    *nNeighbours += field->fieldMatrix[(x+1)+field->ySize*y];
-    *nNeighbours += field->fieldMatrix[(x-1)+field->ySize*(y+1)];
-    *nNeighbours += field->fieldMatrix[(x+1)+field->ySize*(y+1)];
-    *nNeighbours += field->fieldMatrix[(x+1)+field->ySize*(y-1)];
-    *nNeighbours += field->fieldMatrix[(x-1)+field->ySize*(y-1)];
-    *nNeighbours += field->fieldMatrix[x+field->ySize*(y+1)];
-    *nNeighbours += field->fieldMatrix[x+field->ySize*(y-1)];
-  }
+  *nNeighbours += field->fieldMatrix[D_MEM_INDEX((*x-1), *y, field->ySize)] + field->fieldMatrix[D_MEM_INDEX((*x+1), *y, field->ySize)]
+                + field->fieldMatrix[D_MEM_INDEX((*x-1), (*y+1), field->ySize)] + field->fieldMatrix[D_MEM_INDEX((*x+1), (*y+1), field->ySize)]
+                + field->fieldMatrix[D_MEM_INDEX((*x+1), (*y-1), field->ySize)] + field->fieldMatrix[D_MEM_INDEX((*x-1), (*y-1), field->ySize)]
+                + field->fieldMatrix[D_MEM_INDEX(*x, (*y+1), field->ySize)] + field->fieldMatrix[D_MEM_INDEX(*x, (*y-1), field->ySize)];
 }
-
 void applyIteration(struct matchField *field) {
   field->simpleComplexity = 0;
   for (int ix = 1; ix < field->xSize-1; ix++) {
     for (int iy = 1; iy < field->ySize-1; iy++) {
-      getNneighbours(field, ix, iy, (int*)&field->fieldMatrixNeighbourCount[ix+field->ySize*iy]);
+      getCellNeighbours(field, &ix, &iy, &field->fieldMatrixNeighbourCount[D_MEM_INDEX(ix, iy, field->ySize)]);
     }
   }
-
   for (int i = field->twoDsize; i--;) {
-    // todo switch
-    if (field->fieldMatrixNeighbourCount[i] == 3) {
-      field->fieldMatrix[i] = 1;
-      field->simpleComplexity += 1;
-    } else if (field->fieldMatrixNeighbourCount[i] < 2) {
-      field->fieldMatrix[i] = 0;
-      field->simpleComplexity += 1;
-    } else if (field->fieldMatrixNeighbourCount[i] > 3) {
-      field->fieldMatrix[i] = 0;
-      field->simpleComplexity += 1;
-    }
-  }
+   if (field->fieldMatrixNeighbourCount[i] == 3) {
+     field->fieldMatrix[i] = 1;
+     field->simpleComplexity += 1;
+   } else if (field->fieldMatrixNeighbourCount[i] < 2) {
+     field->fieldMatrix[i] = 0;
+     field->simpleComplexity += 1;
+   } else if (field->fieldMatrixNeighbourCount[i] > 3) {
+     field->fieldMatrix[i] = 0;
+     field->simpleComplexity += 1;
+   }
+ }
 }

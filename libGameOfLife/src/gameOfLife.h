@@ -16,7 +16,7 @@ struct matchField{
 };
 
 // internal
-void getNneighbours(struct matchField *field, int x, int y, int *nNeighbours);
+void getCellNeighbours(struct matchField *field, int *x, int *y, uint8_t *nNeighbours);
 
 int fieldBoundaryCheck(struct matchField *field, int x, int y);
 
@@ -24,7 +24,7 @@ inline double calcLogWithBase(int base, double x);
 
 inline int countCellsAlive(struct matchField *field);
 
-inline int nLevensteinEncoding(int n);
+inline double nLevensteinEncoding(int n);
 
 // by https://www.geeksforgeeks.org/binomial-coefficient-dp-9/
 inline int binomialCoeff(int n, int k);

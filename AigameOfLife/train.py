@@ -22,9 +22,9 @@ def main():
   train_eval()
 
 def train_eval(
-    golMatchFieldDims=(50, 50),
+    golMatchFieldDims=(20, 20),
     golMatchFieldNiter=10,
-    earlyEvolutionPenalty=1,
+    earlyEvolutionPenalty=1000,
     num_iterations=500,
     actor_learning_rate=0.0001,
     critic_learning_rate=0.0001,
@@ -35,7 +35,7 @@ def train_eval(
     fc_layer_params=(400,400),
     observation_fc_layer_params=(400, 400),
     # fitnessParameters available: entropy, simpleComplexity, pComplexity
-    fitnessParameter="entropy"):
+    fitnessParameter="pComplexity"):
 
     global_step = tf.compat.v1.train.get_or_create_global_step()
 
